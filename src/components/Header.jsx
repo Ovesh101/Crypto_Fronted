@@ -25,7 +25,7 @@ function Header() {
       setIsScrolled(window.scrollY > 100); // Check if scrolled down
     };
     if(!userId){
-      navigate('/')
+      navigate('/login')
     }else{
       navigate("/machine_listing")
     }
