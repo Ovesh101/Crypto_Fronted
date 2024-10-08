@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../redux/features/UserSlice";
 import useLocalStorage from "../utils/hooks/useLocalStorage";
 import toast from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(false);
@@ -16,17 +17,15 @@ const Login = () => {
   const [showText, setShowText] = useState("");
   const [searchParams] = useSearchParams();
   const [referralCode, setReferralCode] = useState("");
-
-
-  
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    const referral = searchParams.get('referral');
+    const referral = searchParams.get("referral");
     if (referral && !isSignIn) {
       setReferralCode(referral); // Set local state with the referral code
-      console.log('Referral code from URL:', referral); // Debugging line
+      console.log("Referral code from URL:", referral); // Debugging line
     }
   }, [searchParams, isSignIn]);
 
@@ -35,6 +34,11 @@ const Login = () => {
     setIsSignIn((prev) => !prev);
   };
 
+  // toggle password visiblity
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   // Form initial values
   const initialValues = {
     first_name: isSignIn ? "" : "",
@@ -42,10 +46,8 @@ const Login = () => {
     email: isSignIn ? "" : "",
     password: "",
     phone_number: "",
-    invited_referral_code: !isSignIn ? referralCode : ""
+    invited_referral_code: !isSignIn ? referralCode : null,
   };
-  
-
 
   // Form validation schema
   const validationSchema = Yup.object({
@@ -62,7 +64,7 @@ const Login = () => {
       : null,
 
     invited_referral_code: !isSignIn
-      ? Yup.string().min(5, "Referral Must be 5 Character ")
+      ? Yup.string().min(5, "Referral Must be 5 Character ").nullable()
       : null, // referral code
 
     last_name: !isSignIn
@@ -85,40 +87,48 @@ const Login = () => {
     if (!isSignIn) {
       setSubmitting(true);
       const postUrl = `${HOST_URL}/user/save+user`; // Ensure URL is correct
+
       try {
-        const checkReferral = await axios.get(
-          `${HOST_URL}/user/getvalid+referralcode/${values.invited_referral_code}`
-        );
-        if (checkReferral.data) {
-          setShowText("Correct Referral");
-          console.log("check refrral", checkReferral);
+        // Check if referral code is provided
+        if (values.invited_referral_code) {
+          const checkReferral = await axios.get(
+            `${HOST_URL}/user/getvalid+referralcode/${values.invited_referral_code}`
+          );
+
+          if (checkReferral.data) {
+            setShowText("Correct Referral");
+            console.log("Referral is correct:", checkReferral);
+
+            // Proceed with registration
+            const response = await axios.post(postUrl, values);
+            console.log("Response:", response.data);
+            setIsSignIn(true);
+            toast.success("You have successfully registered");
+          } else {
+            setShowText("Incorrect Referral");
+            toast.error("Please enter a correct referral code.");
+          }
+        } else {
+          // If no referral code is provided, proceed with registration directly
+
+          console.log("no referral code is provided");
+
+          console.log(values);
+          if (!values.invited_referral_code) {
+            values.invited_referral_code = null; // Remove the field
+          }
 
           const response = await axios.post(postUrl, values);
           console.log("Response:", response.data);
           setIsSignIn(true);
-          setSubmitting(false);
-          resetForm();
-
-          // Send POST request to save user data
-          // Handle success, e.g., reset the form or display a success message
-          toast.success("You have Successfully Registered");
-        } else {
-          setSubmitting(false);
-          setShowText("Incorrect Referral");
-          toast.error("Pease Enter Correct Referral Code..");
+          toast.success("You have successfully registered");
         }
       } catch (error) {
-        setSubmitting(false);
-        resetForm();
         console.error("Error submitting form:", error);
-        // Handle error, e.g., display an error message
-        toast.error("Failed to Create User");
+        toast.error("Failed to create user");
       } finally {
-        // Always set submitting to false once request is completed
-        setSubmitting(false);
+        setSubmitting(false); // Always set submitting to false once the request is completed
       }
-
-      // If user is signing in
     } else {
       try {
         const phone = parseInt(values.phone_number);
@@ -143,7 +153,6 @@ const Login = () => {
           // Save the user_id in localStorage for 1 hour
           setToken(user_id);
         } else {
-          resetForm();
           setSubmitting(false);
           toast.error("Credentials Incorrect");
         }
@@ -186,13 +195,13 @@ const Login = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-           onSubmit={onSubmit}
+            onSubmit={onSubmit}
             validateOnChange={true}
             validateOnBlur={true}
             context={{ isSignIn }}
             enableReinitialize
           >
-            {({ isSubmitting , setFieldValue }) => (
+            {({ isSubmitting, setFieldValue }) => (
               <Form>
                 {/* Show Name fields only if it's Sign Up */}
                 {!isSignIn && (
@@ -251,7 +260,10 @@ const Login = () => {
                         className="text-red-500 text-sm"
                         value={referralCode} // Bind value to local state
                         onChange={(e) => {
-                          setFieldValue('invited_referral_code', e.target.value); // Update Formik field value
+                          setFieldValue(
+                            "invited_referral_code",
+                            e.target.value
+                          ); // Update Formik field value
                           setReferralCode(e.target.value); // Update local state
                         }}
                       />
@@ -273,9 +285,9 @@ const Login = () => {
                   />
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 relative ">
                   <Field
-                    type="password"
+                   type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="Password"
                     className="w-full p-3 rounded bg-[#271A84] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#271A84]"
@@ -285,6 +297,12 @@ const Login = () => {
                     component="div"
                     className="text-red-500 text-sm"
                   />
+                  <div
+                    onClick={togglePasswordVisibility}
+                    className="absolute top-7 text-white right-2 transform -translate-y-1/2 cursor-pointer"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </div>
                 </div>
 
                 <div className="relative">

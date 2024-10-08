@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadingIcon from "./LoadingIcon"; // Import LoadingIcon component
 import toast from "react-hot-toast";
+import MessageBox from "./MessageBox";
 
 const Deposit = () => {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
@@ -107,6 +108,9 @@ const Deposit = () => {
   };
 
   return (
+    <>
+    <MessageBox />
+  
     <div className=" space-y-8">
       {/* Loading Indicator */}
       {loading ? (
@@ -237,6 +241,8 @@ const Deposit = () => {
         </>
       )}
     </div>
+
+    </>
   );
 };
 

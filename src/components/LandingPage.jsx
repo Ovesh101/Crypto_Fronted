@@ -1,8 +1,24 @@
+import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../utils/hooks/useLocalStorage";
 import Section_1 from "./sections/Section_1";
 import Section_2 from "./sections/Section_2";
 import { Section_3 } from "./sections/Section_3";
 import Section_4 from "./sections/Section_4";
 const LandingPage = () => {
+  const [userId, setUserId, removeUserId] = useLocalStorage("authToken");
+
+  const navigate = useNavigate();
+
+
+  const handleStartMining = () => {
+    if (userId) {
+      // If user data exists, redirect to machine listing
+      navigate("/machine_listing");
+    } else {
+      // Otherwise, redirect to login
+      navigate("/login");
+    }
+  };
   return (
     <>
       <div
@@ -38,7 +54,10 @@ const LandingPage = () => {
           </p>
 
           {/* Button */}
-          <button className="text-gray-200 w-[160px] sm:w-[200px] py-3 sm:py-4 text-sm sm:text-[20px] font-medium leading-[24px] sm:leading-[28px] rounded-full px-4 shadow-lg bg-gradient-to-r from-[#29C8A0] to-[#6568EB]">
+          <button
+            className="text-gray-200 w-[160px] sm:w-[200px] py-3 sm:py-4 text-sm sm:text-[20px] font-medium leading-[24px] sm:leading-[28px] rounded-full px-4 shadow-lg bg-gradient-to-r from-[#29C8A0] to-[#6568EB]"
+            onClick={handleStartMining}
+          >
             Start Mining
           </button>
         </div>

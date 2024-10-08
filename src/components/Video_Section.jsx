@@ -34,10 +34,7 @@ const videoData = [
     return (
       <section className="bg-gray-900 py-10 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-white text-center mb-8">
-            Video Tutorials
-          </h1>
-          <BackButton />
+
   
           {/* Grid Layout for Videos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

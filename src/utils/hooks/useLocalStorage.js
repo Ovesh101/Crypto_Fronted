@@ -3,31 +3,20 @@ import { useDispatch } from "react-redux";
 import { removeUser } from "../../redux/features/UserSlice";
 
 function useLocalStorage(key) {
-  let initialValue = null;
-let expiryInMilliseconds = 86400000;
+  const initialValue = null;
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch();
+  // Retrieve the stored value from localStorage
   const [storedValue, setStoredValue] = useState(() => {
-   
     try {
-
-     
       // Get item from localStorage
       const item = window.localStorage.getItem(key);
+
+      // If no item is found, return initial value
       if (!item) return initialValue;
 
-      // Parse item to an object
+      // Parse item and return it
       const parsedItem = JSON.parse(item);
-
-      // Check if the item is expired
-      if (new Date().getTime() > parsedItem.expiry) {
-        // If expired, remove from localStorage
-        window.localStorage.removeItem(key);
-        dispatch(removeUser());
-        return initialValue;
-      }
-
-      // If not expired, return the stored value
       return parsedItem.user_id;
     } catch (error) {
       console.error(error);
@@ -35,17 +24,15 @@ const dispatch = useDispatch();
     }
   });
 
-  const setValueWithExpiry = (value) => {
+  // Function to store the value in localStorage
+  const setValue = (value) => {
     try {
-      const now = new Date();
-
-      // Set expiry time (now + expiryInMilliseconds)
+      // Save the user ID in localStorage without expiry
       const item = {
         user_id: value,
-        expiry: now.getTime() + expiryInMilliseconds,
       };
 
-      // Save the item in localStorage
+      // Store it in localStorage
       window.localStorage.setItem(key, JSON.stringify(item));
 
       // Update state
@@ -55,7 +42,23 @@ const dispatch = useDispatch();
     }
   };
 
-  return [storedValue, setValueWithExpiry];
+  // Function to remove the value (i.e., logging out the user)
+  const removeValue = () => {
+    try {
+      // Remove item from localStorage
+      window.localStorage.removeItem(key);
+
+      // Update state to initial value
+      setStoredValue(initialValue);
+
+      // Dispatch redux action to remove user
+      dispatch(removeUser());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return [storedValue, setValue, removeValue];
 }
 
 export default useLocalStorage;

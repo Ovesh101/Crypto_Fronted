@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { HOST_URL } from "../utils/constant";
 import useLocalStorage from "../utils/hooks/useLocalStorage";
 import LoadingIcon from "./LoadingIcon";
+import MessageBox from "./MessageBox";
 
 const WithDrawal = () => {
   const [userId] = useLocalStorage("authToken"); // 1 hour expiry
@@ -59,6 +60,11 @@ const WithDrawal = () => {
   }
 
   return (
+
+    <>
+
+    <MessageBox />
+
     <div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg">
       <h1 className="text-4xl font-bold mb-6 text-center text-violet-700">
         Withdrawals
@@ -172,6 +178,7 @@ const WithDrawal = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

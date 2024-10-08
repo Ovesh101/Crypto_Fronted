@@ -7,6 +7,7 @@ import useLocalStorage from "../utils/hooks/useLocalStorage";
 import { HOST_URL } from "../utils/constant";
 import Loading from "./Loading";
 import { addMachines } from "../redux/features/Machine_Slice";
+import MessageBox from "./MessageBox";
 
 const MachineListing = () => {
     const [token] = useLocalStorage("authToken"); // 1 hour expiry
@@ -57,6 +58,10 @@ const MachineListing = () => {
     }
 
     return (
+        <>
+
+        <MessageBox />
+     
         <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             { machines && machines.length && machines.map((machine) => (
                 <div className="bg-gray-800 p-6 rounded-lg shadow-md" key={machine.machine_id}>
@@ -74,6 +79,8 @@ const MachineListing = () => {
                 </div>
             ))}
         </div>
+
+        </>
     );
 };
 

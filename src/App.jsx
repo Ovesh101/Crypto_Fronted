@@ -207,7 +207,11 @@ function App() {
         },
         {
           path: "/video_section",
-          element: <Video_Section />,
+          element: (
+            <Layout>
+              <Video_Section />
+            </Layout>
+          ),
         },
         {
           path: "*",

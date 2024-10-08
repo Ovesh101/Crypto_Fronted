@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const user_data = useSelector((store) => store.user);
-  const [userId, setUserId] = useLocalStorage("authToken");
+  const [userId, setUserId, removeUserId] = useLocalStorage("authToken");
 
   const user_pending_deposit = useSelector(
     (store) => store.user.userPendingDeposit
@@ -37,9 +37,9 @@ function Header() {
   }, []);
 
   const handleLogout = () => {
-    setUserId(null); // Clear the token from local storage
+    removeUserId(); // Clear the token from local storage
     dispatch(removeUser()); // Remove user from Redux store
-    toast.success("Loggout  successfully");
+    toast.success("Logged out successfully"); // Show a success message
 
     navigate("/login"); // Redirect to the login page
   };
