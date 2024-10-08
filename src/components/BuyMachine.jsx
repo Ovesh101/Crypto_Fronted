@@ -6,6 +6,7 @@ import { HOST_URL } from "../utils/constant";
 import { toast } from "react-hot-toast"; // Import toast
 import LoadingIcon from "../components/LoadingIcon"; // Import your loading icon component
 import BackButton from "./BackButton";
+import { Copy } from "lucide-react";
 
 const BuyMachine = () => {
   const [machineData, setMachineData] = useState({});
@@ -13,6 +14,8 @@ const BuyMachine = () => {
   const [utr, setUtr] = useState("");
   const [confirmUtr, setConfirmUtr] = useState("");
   const [loading, setLoading] = useState(true); // Loading state
+  const [copySuccess, setCopySuccess] = useState(false);
+
 
   const navigate = useNavigate();
   const { machine_id } = useParams();
@@ -47,6 +50,8 @@ const BuyMachine = () => {
     }
   }, [navigate, user, machine_id]);
 
+
+
   const formData = {
     user_id: user.user_id,
     phone_number: user.phone_number,
@@ -58,6 +63,19 @@ const BuyMachine = () => {
     upi_id: qrData.upi_id,
     utr_number: null,
     is_success: false,
+  };
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(formData.upi_id)
+      .then(() => {
+        setCopySuccess(true);
+        console.log("hello");
+        
+        setTimeout(() => setCopySuccess(false), 2000); // Hide after 2 seconds
+      })
+      .catch((error) => {
+        console.error("Error copying the referral code: ", error);
+      });
   };
 
   // Function to check if UTR exists in pending or success deposits
@@ -174,7 +192,7 @@ const BuyMachine = () => {
           </div>
 
           {/* QR Code Section */}
-          <div className="w-full md:w-1/2 text-center flex flex-col items-center">
+          <div className="w-full relative md:w-1/2 text-center flex flex-col items-center">
             <h3 className="text-lg font-medium text-gray-700 mb-4">
               Pay via UPI
             </h3>
@@ -188,6 +206,14 @@ const BuyMachine = () => {
             <p className="text-gray-600 mb-4">
               <span className="font-semibold">UPI ID:</span> {qrData.upi_id}
             </p>
+            <button onClick={handleCopy} className="flex items-center">
+                <Copy className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-500 transition duration-200" />
+              </button>
+              {copySuccess && (
+                <div className="absolute bottom-3 bg-gray-300 text-black text-[10px] p-2 rounded-md  transition-opacity duration-300 opacity-100">
+                  UPI Copied
+                </div>
+              )}
           </div>
         </div>
 
@@ -206,6 +232,7 @@ const BuyMachine = () => {
               id="utr"
               name="utr"
               value={utr}
+              maxLength={12}
               onChange={(e) => setUtr(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter UTR"
