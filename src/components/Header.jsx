@@ -56,7 +56,7 @@ function Header() {
       {/* Logo */}
       <div className="text-white text-xl font-bold">
         <Link to={user_data.isLoggedIn ? "/machine_listing": "/"}>
-          <img src="/Images/logo.jpg" className="w-16 h-16" alt="Logo" />
+          <img src="/Images/logo.png" className="w-[100px] h-[100px]" alt="Logo" />
         </Link>
       </div>
       <div className="flex gap-2 sm:gap-5">
