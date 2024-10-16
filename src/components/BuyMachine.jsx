@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast"; // Import toast
 import LoadingIcon from "../components/LoadingIcon"; // Import your loading icon component
 import BackButton from "./BackButton";
 import { Copy } from "lucide-react";
+import MessageBox from "./MessageBox";
 
 const BuyMachine = () => {
   const [machineData, setMachineData] = useState({});
@@ -15,7 +16,6 @@ const BuyMachine = () => {
   const [confirmUtr, setConfirmUtr] = useState("");
   const [loading, setLoading] = useState(true); // Loading state
   const [copySuccess, setCopySuccess] = useState(false);
-
 
   const navigate = useNavigate();
   const { machine_id } = useParams();
@@ -50,8 +50,6 @@ const BuyMachine = () => {
     }
   }, [navigate, user, machine_id]);
 
-
-
   const formData = {
     user_id: user.user_id,
     phone_number: user.phone_number,
@@ -70,7 +68,7 @@ const BuyMachine = () => {
       .then(() => {
         setCopySuccess(true);
         console.log("hello");
-        
+
         setTimeout(() => setCopySuccess(false), 2000); // Hide after 2 seconds
       })
       .catch((error) => {
@@ -132,7 +130,7 @@ const BuyMachine = () => {
       const check = await checkUtr(utr);
       if (check === "exists") {
         toast.error("UTR already exists, cannot submit again."); // Show error toast
-      
+
         return;
       }
 
@@ -149,136 +147,148 @@ const BuyMachine = () => {
   };
 
   return (
-    <div className="bg-gray-800 relative min-h-screen flex justify-center items-center px-5 py-16">
-      <div className="absolute top-3 left-4 md:top-10 md:left-10">
-
-     
-      <BackButton />
-      </div>
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-          Buy Machine
-        </h1>
-       
-
-        {loading && (
-          <div className="flex justify-center items-center h-screen">
-            <LoadingIcon />
-          </div>
-        )}
-
-        {/* Machine Information */}
-        <div className="flex flex-col md:flex-row justify-between items-start mb-10">
-          <div className="w-full md:w-1/2">
-            <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-              {machineData.machine_name}
-            </h2>
-            <img
-              src={machineData.url}
-              alt={machineData.machine_name}
-              className="w-full h-auto rounded-md mb-4"
-            />
-            <p className="text-gray-600 mb-2">
-              <span className="font-semibold">Price:</span> ₹{machineData.price}
-            </p>
-            <p className="text-gray-600 mb-2">
-              <span className="font-semibold">Description:</span>{" "}
-              {machineData.description}
-            </p>
-            <p className="text-gray-600 mb-4">
-              <span className="font-semibold">Purchased by:</span>{" "}
-              {user.first_name}
-            </p>
-          </div>
-
-          {/* QR Code Section */}
-          <div className="w-full relative md:w-1/2 text-center flex flex-col items-center">
-            <h3 className="text-lg font-medium text-gray-700 mb-4">
-              Pay via UPI
-            </h3>
-            {qrData.qrcode_image && (
-              <img
-                src={qrData.qrcode_image}
-                alt="QR Code"
-                className="w-40 h-40 mx-auto mb-4"
-              />
-            )}
-            <p className="text-gray-600 mb-4">
-              <span className="font-semibold">UPI ID:</span> {qrData.upi_id}
-            </p>
-            <button onClick={handleCopy} className="flex items-center">
-                <Copy className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-500 transition duration-200" />
-              </button>
-              {copySuccess && (
-                <div className="absolute bottom-3 bg-gray-300 text-black text-[10px] p-2 rounded-md  transition-opacity duration-300 opacity-100">
-                  UPI Copied
-                </div>
-              )}
-          </div>
+    <>
+      <div className="bg-gray-800 relative place-items-center flex justify-center items-center px-5 py-16">
+        <div className="absolute flex top-3 left-4 md:top-10 md:left-10">
+          <BackButton />
         </div>
 
-        {/* UTR Form */}
-        <div className="mt-10">
-          <h3 className="text-xl font-bold text-gray-800 mb-6">
-            Submit Your UTR
-          </h3>
-          <form onSubmit={handleUtrSubmit} className="flex flex-col">
-            {/* UTR Input */}
-            <label className="text-gray-700 mb-2 font-semibold" htmlFor="utr">
-              Enter UTR (Unique Transaction Reference)
-            </label>
-            <input
-              type="text"
-              id="utr"
-              name="utr"
-              value={utr}
-              maxLength={12}
-              onChange={(e) => setUtr(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter UTR"
-              required
-            />
+        {/* Message Box positioned above the Buy Machine section */}
+        {/* <div className="w-full max-w-4xl mb-10">
+          <MessageBox name="buy_machine" />
+        </div> */}
+        <div>
+          <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
+            <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+              Buy Machine
+            </h1>
 
-            {/* Confirm UTR Input */}
-            <label
-              className="text-gray-700 mb-2 font-semibold"
-              htmlFor="confirmUtr"
-            >
-              Confirm UTR
-            </label>
-            <input
-              type="text"
-              id="confirmUtr"
-              name="confirmUtr"
-              value={confirmUtr}
-              onChange={(e) => setConfirmUtr(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Re-enter UTR"
-              required
-            />
-
-            {/* Error message if UTRs do not match */}
-            {utr !== confirmUtr && confirmUtr.length > 0 && (
-              <p className="text-red-600 mb-4">
-                UTRs do not match. Please try again.
-              </p>
+            {loading && (
+              <div className="flex justify-center items-center h-screen">
+                <LoadingIcon />
+              </div>
             )}
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={utr !== confirmUtr || loading} // Disable while loading
-              className={`${
-                utr === confirmUtr && !loading ? "bg-blue-600" : "bg-gray-400"
-              } text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition`}
-            >
-              {loading ? "Submitting..." : "Submit UTR"}{" "}
-              {/* Change button text based on loading state */}
-            </button>
-          </form>
+            {/* Machine Information */}
+            <div className="flex flex-col md:flex-row justify-between items-start mb-10">
+              <div className="w-full md:w-1/2">
+                <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                  {machineData.machine_name}
+                </h2>
+                <img
+                  src={machineData.url}
+                  alt={machineData.machine_name}
+                  className="w-full h-auto rounded-md mb-4"
+                />
+                <p className="text-gray-600 mb-2">
+                  <span className="font-semibold">Price:</span> ₹
+                  {machineData.price}
+                </p>
+                <p className="text-gray-600 mb-2">
+                  <span className="font-semibold">Description:</span>{" "}
+                  {machineData.description}
+                </p>
+                <p className="text-gray-600 mb-4">
+                  <span className="font-semibold">Purchased by:</span>{" "}
+                  {user.first_name}
+                </p>
+              </div>
+
+              {/* QR Code Section */}
+              <div className="w-full relative md:w-1/2 text-center flex flex-col items-center">
+                <h3 className="text-lg font-medium text-gray-700 mb-4">
+                  Pay via UPI
+                </h3>
+                {qrData.qrcode_image && (
+                  <img
+                    src={qrData.qrcode_image}
+                    alt="QR Code"
+                    className="w-40 h-40 mx-auto mb-4"
+                  />
+                )}
+                <p className="text-gray-600 mb-4">
+                  <span className="font-semibold">UPI ID:</span> {qrData.upi_id}
+                </p>
+                <button onClick={handleCopy} className="flex items-center">
+                  <Copy className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-500 transition duration-200" />
+                </button>
+                {copySuccess && (
+                  <div className="absolute bottom-3 bg-gray-300 text-black text-[10px] p-2 rounded-md transition-opacity duration-300 opacity-100">
+                    UPI Copied
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* UTR Form */}
+            <div className="mt-10">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">
+                Submit Your UTR
+              </h3>
+              <form onSubmit={handleUtrSubmit} className="flex flex-col">
+                {/* UTR Input */}
+                <label
+                  className="text-gray-700 mb-2 font-semibold"
+                  htmlFor="utr"
+                >
+                  Enter UTR (Unique Transaction Reference)
+                </label>
+                <input
+                  type="text"
+                  id="utr"
+                  name="utr"
+                  value={utr}
+                  maxLength={12}
+                  onChange={(e) => setUtr(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter UTR"
+                  required
+                />
+
+                {/* Confirm UTR Input */}
+                <label
+                  className="text-gray-700 mb-2 font-semibold"
+                  htmlFor="confirmUtr"
+                >
+                  Confirm UTR
+                </label>
+                <input
+                  type="text"
+                  id="confirmUtr"
+                  name="confirmUtr"
+                  value={confirmUtr}
+                  onChange={(e) => setConfirmUtr(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Re-enter UTR"
+                  required
+                />
+
+                {/* Error message if UTRs do not match */}
+                {utr !== confirmUtr && confirmUtr.length > 0 && (
+                  <p className="text-red-600 mb-4">
+                    UTRs do not match. Please try again.
+                  </p>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={utr !== confirmUtr || loading} // Disable while loading
+                  className={`${
+                    utr === confirmUtr && !loading
+                      ? "bg-blue-600"
+                      : "bg-gray-400"
+                  } text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition`}
+                >
+                  {loading ? "Submitting..." : "Submit UTR"}{" "}
+                  {/* Change button text based on loading state */}
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

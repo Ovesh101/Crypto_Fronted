@@ -26,8 +26,6 @@ function Header() {
     };
     if(!userId){
       navigate('/login')
-    }else{
-      navigate("/machine_listing")
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -54,7 +52,7 @@ function Header() {
         : "fixed bg-opacity-60" // If not logged in and not scrolled, use a transparent background
     }`}
   >
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div className="w-full px-2 md:px-4 lg:px-6 py-2 flex justify-between items-center">
       {/* Logo */}
       <div className="text-white text-xl font-bold">
         <Link to={user_data.isLoggedIn ? "/machine_listing": "/"}>
@@ -63,16 +61,16 @@ function Header() {
       </div>
       <div className="flex gap-2 sm:gap-5">
         {/* Register / Login Buttons */}
-        <div className="border border-[#7D60F9] text-white px-3 sm:px-5 py-2 hover:bg-[#7D60F9] rounded-full transition duration-300">
+        <div className="border border-[#7D60F9] text-white px-2 sm:px-5 py-2 hover:bg-[#7D60F9] rounded-[30px]  md:rounded-full transition duration-300">
           {user_data.isLoggedIn ? (
-            <button onClick={handleLogout}>Logout</button>
+            <button className=" text-[12px]  md:text-[14px]" onClick={handleLogout}>Logout</button>
           ) : (
             <Link to="/login">Register / Login</Link>
           )}
         </div>
-        <div className={`relative ${user_data.isLoggedIn ? "border border-[#7D60F9]" : ""}  text-white px-3 sm:px-5 py-2 hover:bg-[#7D60F9] rounded-full transition duration-300`}>
+        <div className={`relative ${user_data.isLoggedIn ? "border border-[#7D60F9]" : "hidden"}  text-white px-2 md:px-5 py-2 items-center hover:bg-[#7D60F9] rounded-[30px] md:rounded-full transition duration-300`}>
           {user_data.isLoggedIn ? (
-            <Link to="/user_pending_deposit" className="relative text-[14px]">
+            <Link to="/user_pending_deposit" className="relative  text-[12px] md:text-[14px]">
               Pending Deposit
               {user_pending_deposit && user_pending_deposit.length > 0 && (
                 <span className="absolute bottom-5 right-0 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">

@@ -14,7 +14,7 @@ import WithDrawal from "./components/WithDrawal";
 import Referral from "./components/Referral";
 import BuyMachine from "./components/BuyMachine";
 import ProtectedRoute from "./components/Protected_Route";
-import Admin from "./components/Admin/Admin"
+import Admin from "./components/Admin/Admin";
 import { useEffect } from "react";
 
 import useLocalStorage from "./utils/hooks/useLocalStorage";
@@ -31,84 +31,63 @@ import Create_Machine from "./components/Admin/Actions/Create_Machine";
 import View_Machine from "./components/Admin/Actions/View_Machine";
 import User_Pending_Despoit from "./components/User_Pending_Despoit";
 import User_Pending_Deposit from "./components/User_Pending_Despoit";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import Video_Section from "./components/Video_Section";
 import NotFound from "./components/NotFound";
-
-
+import Privacy_Policy from "./components/Privacy_Policy";
 
 function App() {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
 
   console.log(userId);
-  
+
   const dispatch = useDispatch();
- 
 
-
-  useEffect(()=>{
-
+  useEffect(() => {
     const userApiUrl = `${HOST_URL}/user/getSingleUser/${userId}`;
-    const user_pending_deposit_API = `${HOST_URL}/pending+request/getsingleuser+pendingmachine/${userId}`
+    const user_pending_deposit_API = `${HOST_URL}/pending+request/getsingleuser+pendingmachine/${userId}`;
 
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(userApiUrl);
         dispatch(addUser(response.data));
-        console.log("user data in app.jsx" , response.data);
-        
+        console.log("user data in app.jsx", response.data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    const fetchUserPendingDeposit = async ()=>{
+    const fetchUserPendingDeposit = async () => {
       try {
         const response = await axios.get(user_pending_deposit_API);
-        console.log("pending depsoit of user" , response.data);
-        
-        dispatch(addUserPendingDeposit(response.data))
-        
+        console.log("pending depsoit of user", response.data);
+
+        dispatch(addUserPendingDeposit(response.data));
       } catch (error) {
         console.log(error);
-        
-        
       }
-    }
+    };
 
-    
+    fetchUserPendingDeposit();
 
-     
-      fetchUserPendingDeposit();
-
-      fetchUserDetails();
-
-    
-    
-
-  } , [])
- 
-  
-
-
+    fetchUserDetails();
+  }, []);
 
   const appRouter = createBrowserRouter([
     {
       path: "/",
       element: (
         <>
-          
-            <Header />
-            <Outlet /> {/* This renders the child routes */}
-            <Footer />
-         
+          <Header />
+          <Outlet /> {/* This renders the child routes */}
+          <Footer />
         </>
       ),
       children: [
         {
           path: "/",
           element: <LandingPage />,
-          errorElement:<NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "/login",
@@ -153,12 +132,14 @@ function App() {
               <Referral />
             </Layout>
           ),
-          errorElement:<NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "/admin",
           element: (
-            <ProtectedRoute role="CARTEL"> {/* Only allow 'CARTEL' role to access */}
+            <ProtectedRoute role="CARTEL">
+              {" "}
+              {/* Only allow 'CARTEL' role to access */}
               <Layout>
                 <Admin /> {/* Admin page content */}
               </Layout>
@@ -183,7 +164,7 @@ function App() {
         },
         {
           path: "/approved_withdrawal",
-          element: < Approved_Withdrawal />,
+          element: <Approved_Withdrawal />,
         },
         {
           path: "/create_qrcode",
@@ -213,6 +194,12 @@ function App() {
             </Layout>
           ),
         },
+        {
+          path: "/Privacy_Policy",
+          element: <Privacy_Policy />,
+        },
+        
+
         {
           path: "*",
           element: <NotFound />,

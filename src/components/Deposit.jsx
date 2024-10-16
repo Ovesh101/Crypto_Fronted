@@ -109,7 +109,7 @@ const Deposit = () => {
 
   return (
     <>
-    <MessageBox />
+    <MessageBox name="deposit" />
   
     <div className=" space-y-8">
       {/* Loading Indicator */}

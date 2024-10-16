@@ -24,6 +24,7 @@ const MachineListing = () => {
             try {
                 const response = await axios.get(`${HOST_URL}/display+machine/getall+display+machines`);
                 dispatch(addMachines(response.data));
+                console.log("machines", response.data);
             } catch (error) {
                 console.error("Error fetching machines:", error);
                 setError("Failed to load machines");
@@ -42,7 +43,7 @@ const MachineListing = () => {
     if (loading) {
         return (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {Array.from({ length: 1 }).map((_, index) => (
+                {Array.from({ length: machines && machines.length > 0 ? machines.length : 4 }).map((_, index) => (
                     <Loading key={index} />
                 ))}
             </div>
@@ -53,33 +54,38 @@ const MachineListing = () => {
         return <p className="text-red-500">{error}</p>;
     }
 
-    const handleMachineClicked = (id)=>{
-        navigate(`/buy_machine/${id}`)
+    if (!machines || machines.length === 0) {
+        return <p className="text-center text-white">No machines are available.</p>;
     }
+
+    const handleMachineClicked = (id) => {
+        navigate(`/buy_machine/${id}`);
+    };
 
     return (
         <>
-
-        <MessageBox />
-     
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            { machines && machines.length && machines.map((machine) => (
-                <div className="bg-gray-800 p-6 rounded-lg shadow-md" key={machine.machine_id}>
-                    <img
-                        src={machine.url}
-                        alt={machine.machine_name}
-                        className="w-full h-40 object-contain rounded-md mb-4"
-                    />
-                    <h3 className="text-2xl font-bold text-white mb-2">{machine.machine_name}</h3>
-                    <p className="text-lg text-gray-300 mb-1">Price: ${machine.price}</p>
-                    <p className="text-sm text-gray-400 mb-3">Valid for {machine.valid_days} days</p>
-                    <button onClick={()=>handleMachineClicked(machine.machine_id)} className="bg-green-500 w-full text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition">
-                        Start Machine
-                    </button>
-                </div>
-            ))}
-        </div>
-
+            <MessageBox name="machine_listing" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {machines.map((machine) => (
+                    <div className="bg-gray-800 p-6 rounded-lg shadow-md" key={machine.machine_id}>
+                        <img
+                            src={machine.url}
+                            alt={machine.machine_name}
+                            className="w-full h-40 object-contain rounded-md mb-4"
+                        />
+                        <h3 className="text-2xl font-bold text-white mb-2">{machine.machine_name}</h3>
+                        <p className="text-lg text-gray-300 mb-1">Price: ${machine.price}</p>
+                        <p className="text-sm text-gray-400 mb-1">Valid for {machine.valid_days} days</p>
+                        <p className="text-sm text-gray-400 mb-1">Interest Per Day: {machine.interest_per_day}</p>
+                        <button
+                            onClick={() => handleMachineClicked(machine.machine_id)}
+                            className="bg-green-500 mt-3 w-full text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition"
+                        >
+                            Start Machine
+                        </button>
+                    </div>
+                ))}
+            </div>
         </>
     );
 };

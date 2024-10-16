@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react'; // Import the ArrowLeft icon
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -11,9 +12,10 @@ const BackButton = () => {
   return (
     <button
       onClick={goBack}
-      className="px-4 py-2 mb-5 bg-gray-800 border border-[#7D60F9] text-white rounded-full hover:bg-[#7D60F9] transition-all"
+      className="flex items-center justify-center px-2 md:px-3 md:py-2 mb-2 w-[50px] md:w-[100px] md:text-[14px] text-[10px] bg-gray-800 border border-[#7D60F9] text-white rounded-[30px] hover:bg-[#7D60F9] transition-all"
     >
-      Go Back
+      <ArrowLeft className="w-6 h-6 mr-1 md:mr-2" /> {/* Icon added */}
+
     </button>
   );
 };

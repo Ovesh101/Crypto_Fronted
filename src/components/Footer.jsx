@@ -1,71 +1,81 @@
+import { Mail, Facebook, Twitter, Instagram } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../utils/hooks/useLocalStorage'; // Assuming this is the hook you're using for auth
+
 const Footer = () => {
+  const navigate = useNavigate();
+  const [token] = useLocalStorage("authToken"); // Check if the user is logged in
+
+  const handleNavigate = (path) => {
+    if (token) {
+      navigate(path); // Navigate to the intended path if the user is logged in
+    } else {
+      navigate("/"); // Redirect to home/login if not logged in
+    }
+  };
+
   return (
-    <footer className="bg-[#192057] text-white py-10 px-4 md:px-8 lg:px-20">
-      <div className="flex flex-col md:flex-row justify-between items-start">
+    <footer className="bg-[#192057] text-white md:py-5 pb-[100px] pt-[20px] px-6 md:px-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Column: Logo and Copyright */}
-        <div className="mb-6 md:mb-0 md:w-1/4">
+        <div>
           {/* Logo */}
           <div className="text-2xl font-bold mb-4">
-            <img src="/Images/logo.jpg" alt="Logo" className="w-32" />
+            <img src="/Images/logo.jpg" alt="Logo" className="w-28 h-auto" />
           </div>
           {/* Copyright */}
           <p className="text-gray-300 text-sm">
-            © 2024 Your Company. All rights reserved.
+            © 2022 Your Company. All rights reserved.
           </p>
+          {/* Social Media Icons */}
+          <div className="flex space-x-4 mt-4">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Facebook className="text-white w-6 h-6 hover:text-gray-300" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <Twitter className="text-white w-6 h-6 hover:text-gray-300" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram className="text-white w-6 h-6 hover:text-gray-300" />
+            </a>
+          </div>
         </div>
 
-        {/* Right Column: 3 Divs in a Row */}
-        <div className="flex flex-col md:flex-row md:w-3/4 justify-around">
-          {/* First Div: Navigate */}
-          <div className="space-y-3 mb-6 md:mb-0 md:w-1/3">
-            <h3 className="font-semibold text-lg">Navigate</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Our Company</a>
-              </li>
-              <li>
-                <a href="#">What We Do</a>
-              </li>
-              <li>
-                <a href="#">Reach Us</a>
-              </li>
-            </ul>
-          </div>
+        {/* Middle Column: Navigate */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Navigate</h3>
+          <ul className="space-y-2 text-gray-300 text-sm">
+            <li>
+              <a href="#" onClick={() => handleNavigate("/machine_listing")}>Home</a>
+            </li>
+            <li>
+              <a href="#" onClick={() => navigate("/")}>Our Company</a>
+            </li>
+            <li>
+              <a href="#" onClick={() => navigate("/")}>What We Do</a>
+            </li>
+            <li>
+              <a href="#" onClick={() => handleNavigate("/Privacy_Policy")}>Privacy Policy</a>
+            </li>
+          </ul>
+        </div>
 
-          {/* Second Div: Explore */}
-          <div className="space-y-3 mb-6 md:mb-0 md:w-1/3">
-            <h3 className="font-semibold text-lg">Privacy & TOC</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>
-                <a href="#">Usage Policy</a>
-              </li>
-              <li>
-                <a href="./Privacy_Policy.html">Privacy Policy</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Third Div: Support */}
-          <div className="space-y-3 md:w-1/3">
-            <h3 className="font-semibold text-lg">Address</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li className="max-w-[300px]">
-                <a href="#">
-                  Room 5, Ground Floor Courtney House, 12 Dudley Street, Luton,
-                  Beds, England, LU2 0NT
-                </a>
-              </li>
-            </ul>
-            <h3 className="font-semibold text-lg">Support</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>
-                <a href="mailto:support@gmail.com">Support@gmail.com</a>
-              </li>
-            </ul>
-          </div>
+        {/* Right Column: Address and Support */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Address</h3>
+          <ul className="space-y-2 text-gray-300 text-sm">
+            <li className="max-w-[300px]">
+              Room 5, Ground Floor Courtney House, 12 Dudley Street, Luton,
+              Beds, England, LU2 0NT
+            </li>
+          </ul>
+          <h3 className="font-semibold text-lg mt-6">Contact Us</h3>
+          <ul className="text-gray-300 text-sm">
+            <li className="flex items-center mt-2">
+              <Mail className="mr-2" />
+              <a href="mailto:support@gmail.com">support@gmail.com</a>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

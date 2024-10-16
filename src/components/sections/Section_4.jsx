@@ -23,7 +23,7 @@ const Section_4 = () => {
         {partners.map((partner, index) => (
           <div
             key={index}
-            className="bg-white flex flex-col sm:w-[160px] sm:h-[180px] sm:p-3 justify-between items-center w-[160px] h-[260px] rounded-lg shadow-lg p-4 md:w-[200px] md:h-[300px]"
+            className="bg-white flex flex-col sm:w-[160px] sm:h-[180px] sm:p-3 justify-between items-center w-[200px] h-[260px] rounded-lg shadow-lg p-4 md:w-[150px] md:h-[300px]"
           >
             <img
               src={partner.mainImage}

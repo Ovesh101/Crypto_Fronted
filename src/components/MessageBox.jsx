@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
-import { X } from 'lucide-react';  // Importing the cross icon
+import React from 'react';
 
-const MessageBox = () => {
-  const [isVisible, setIsVisible] = useState(true);  // State to control visibility
+const MessageBox = ({ name }) => {
+  let message;
 
-  // Function to hide the message box
-  const handleClose = () => {
-    setIsVisible(false);
-  };
-
-  // Conditionally render the message box based on visibility
-  if (!isVisible) return null;
+  // Determine the message based on the name prop
+  switch (name) {
+    case 'deposit':
+      message = 'Your deposit has been successful!';
+      break;
+    case 'withdrawal':
+      message = 'Your withdrawal request has been processed!';
+      break;
+    case 'machine_listing':
+      message = 'New machines have been listed successfully!';
+      break;
+    case 'buy_machine':
+      message = 'You are about to buy a machine. Please confirm!';
+      break;
+    default:
+      message = 'This is a message! You can close this by clicking the cross icon.';
+  }
 
   return (
     <div className="bg-[#7D60F9] bg-opacity-40 text-white p-4 mb-5 rounded-md shadow-md flex items-center justify-between">
       {/* Message content */}
-      <p className="text-sm">
-        This is a message! You can close this by clicking the cross icon.
-      </p>
+      <p className="text-sm">{message}</p>
+      {/* Close icon can be added here if needed */}
 
-      {/* Cross Icon */}
-      <button onClick={handleClose} className="ml-4">
-        <X size={20} className="hover:text-gray-300" />  {/* Close icon */}
-      </button>
     </div>
   );
 };
