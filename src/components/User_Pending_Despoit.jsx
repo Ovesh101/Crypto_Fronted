@@ -68,6 +68,7 @@ const User_Pending_Deposit = () => {
               src={machine.url}
               alt={machine.machine_name}
               className="w-full h-40 object-contain rounded-md mb-4"
+               loading="lazy"
             />
             <h3 className="text-2xl font-bold mb-2">{machine.machine_name}</h3>
             <p className="text-lg text-gray-300 mb-1">Price: <span className="text-green-400">${machine.price}</span></p>

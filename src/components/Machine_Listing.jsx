@@ -70,6 +70,7 @@ const MachineListing = () => {
                     <div className="bg-gray-800 p-6 rounded-lg shadow-md" key={machine.machine_id}>
                         <img
                             src={machine.url}
+                            loading="lazy"
                             alt={machine.machine_name}
                             className="w-full h-40 object-contain rounded-md mb-4"
                         />

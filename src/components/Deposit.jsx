@@ -220,6 +220,7 @@ const Deposit = () => {
                   <img
                     src={machine.machine.url} // Correcting the image property name
                     alt={machine.machine.machine_name}
+                     loading="lazy"
                     className="  w-full h-40 object-contain rounded-t-lg"
                   />
                   <div className="p-4">
