@@ -68,7 +68,7 @@ function Header() {
             <Link to="/login">Register / Login</Link>
           )}
         </div>
-        <div className={`relative ${user_data.isLoggedIn ? "border border-[#7D60F9]" : "hidden"}  text-white px-2 md:px-5 py-2 items-center hover:bg-[#7D60F9] rounded-[30px] md:rounded-full transition duration-300`}>
+        <div className={`relative ${user_data.isLoggedIn ? "border border-[#7D60F9] hover:bg-[#7D60F9] rounded-[30px] md:rounded-full transition duration-300 " : ""}  text-white px-2 md:px-5 py-2 items-center`}>
           {user_data.isLoggedIn ? (
             <Link to="/user_pending_deposit" className="relative  text-[12px] md:text-[14px]">
               Pending Deposit
