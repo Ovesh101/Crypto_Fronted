@@ -93,7 +93,7 @@ const Referral = () => {
       <BackButton />
 
 
-    <div className="lg:max-w-5xl sm:max-w-[300px] mx-auto md:p-6 p-4 bg-gray-800 rounded-lg shadow-lg">
+    <div className=" mx-auto md:p-6 p-4 bg-gray-800 rounded-lg shadow-lg">
       <h1 className="lg:text-4xl text-3xl font-bold mb-6 text-center text-white">
         Referral Overview
       </h1>
