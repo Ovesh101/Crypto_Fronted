@@ -91,7 +91,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
               value={formData.bank_name || ""}
               onChange={handleChange}
               className="w-full border bg-gray-800 px-2 py-1 rounded"
-              required
+            
             />
           </div>
           <div className="mb-4">
@@ -102,7 +102,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
               value={formData.ifsc_code || ""}
               onChange={handleChange}
               className="w-full border bg-gray-800 px-2 py-1 rounded"
-              required
+             
             />
           </div>
           <div className="mb-4">
@@ -113,7 +113,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
               value={formData.upi_id || ""}
               onChange={handleChange}
               className="w-full border bg-gray-800 px-2 py-1 rounded"
-              required
+              
             />
           </div>
           <div className="mb-4">
@@ -124,7 +124,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
               value={formData.aadhaar_number || ""}
               onChange={handleChange}
               className="w-full border bg-gray-800 px-2 py-1 rounded"
-              required
+            
             />
           </div>
           <div className="mb-4">
@@ -135,7 +135,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
               value={formData.pan_card || ""}
               onChange={handleChange}
               className="w-full border bg-gray-800 px-2 py-1 rounded"
-              required
+            
             />
           </div>
 

@@ -29,13 +29,11 @@ const Footer = () => {
           </p>
           {/* Social Media Icons */}
           <div className="flex space-x-4 mt-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=61566915029014&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <Facebook className="text-white w-6 h-6 hover:text-gray-300" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <Twitter className="text-white w-6 h-6 hover:text-gray-300" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+       
+            <a href="https://www.instagram.com/invites/contact/?igsh=8ujzna47pw0i&utm_content=w7ekbcp" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <Instagram className="text-white w-6 h-6 hover:text-gray-300" />
             </a>
           </div>
