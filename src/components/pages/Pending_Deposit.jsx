@@ -114,7 +114,16 @@ const Pending_Deposit = () => {
                       <td className="py-4 px-4 border-b border-gray-600">{item.user_id}</td>
                       <td className="py-4 px-4 border-b border-gray-600">{item.first_name}</td>
                       <td className="py-4 px-4 border-b border-gray-600">{item.utr_number}</td>
-                      <td className="py-4 px-4 border-b border-gray-600">{item.deposited_date}</td>
+                      <td className="py-4 px-4 border-b border-gray-600">
+                      {new Date(item.deposited_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
                       <td className="py-4 px-4 border-b border-gray-600">{item.machine_price}</td>
                       <td
                         onClick={() => handleApprove(item)}

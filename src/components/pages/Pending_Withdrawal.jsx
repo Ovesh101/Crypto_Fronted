@@ -129,8 +129,15 @@ const Pending_Withdrawal = () => {
                         {item.is_success ? "Success" : "Pending"}
                       </td>
                       <td className="py-4 px-4 border-b border-gray-600">
-                        {item.withdrawal_date}
-                      </td>
+                      {new Date(item.withdrawal_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
                       <td
                         onClick={() => handleModalClicked(item)}
                         className="py-2 px-4 cursor-pointer bg-blue-500 rounded-full text-center border-b transition-colors duration-300 hover:bg-blue-600"

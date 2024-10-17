@@ -94,8 +94,15 @@ const Approved_Deposit = () => {
                         {item.utr_number}
                       </td>
                       <td className="py-4 px-4 border-b border-gray-600">
-                        {item.approved_date}
-                      </td>
+                      {new Date(item.approved_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
                       <td className="py-4 px-4 border-b border-gray-600">
                         {item.machine_price}
                       </td>
