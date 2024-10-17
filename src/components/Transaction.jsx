@@ -11,7 +11,7 @@ const Transaction = () => {
         {/* Deposit Card */}
         <div
           onClick={() => navigate("/deposit")}
-          className="bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
+          className="bg-gradient-to-r from-purple-500 to-blue-500 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
         >
           <h3 className="text-xl text-white font-semibold mb-4">Deposit Section </h3>
         </div>
@@ -19,7 +19,7 @@ const Transaction = () => {
         {/* Withdrawal Card */}
         <div
           onClick={() => navigate("/withdrawal")}
-          className="bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
+          className="bg-gradient-to-r from-green-500 to-teal-500 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
         >
           <h3 className="text-xl text-white font-semibold mb-4">Withdrawal Section </h3>
         </div>

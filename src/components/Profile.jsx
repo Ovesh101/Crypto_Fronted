@@ -109,7 +109,7 @@ const Profile = () => {
      
       <div
         onClick={() => navigate("/referral")}
-        className="bg-gray-800 shadow-lg md:w-1/2   rounded-lg p-6 flex  items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
+        className="bg-gradient-to-r from-green-500 to-teal-500 shadow-lg md:w-1/2   rounded-lg p-6 flex  items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
       >
         <h3 className="text-xl text-white font-semibold mb-4">
           Referral Section{" "}
