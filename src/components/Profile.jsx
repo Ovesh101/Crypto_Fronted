@@ -104,13 +104,17 @@ const Profile = () => {
 
   return (
     <section className="mb-8  " >
+      <div className="flex justify-center items-center" >
+
+     
       <div
         onClick={() => navigate("/referral")}
-        className="bg-gray-800 shadow-lg   rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
+        className="bg-gray-800 shadow-lg md:w-1/2   rounded-lg p-6 flex  items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
       >
         <h3 className="text-xl text-white font-semibold mb-4">
           Referral Section{" "}
         </h3>
+      </div>
       </div>
 
       <div className="p-6 bg-gray-800 mt-10 rounded-lg shadow-lg max-w-4xl mx-auto">

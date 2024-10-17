@@ -111,7 +111,7 @@ const WithDrawal = () => {
                   </th>
                   <th className="py-2 md:py-4 px-2 md:px-6 text-left font-semibold text-[10px] md:text-[16px] uppercase">
                      Status
-                  </th>
+                  </th> 
                 </tr>
               </thead>
               <tbody>
