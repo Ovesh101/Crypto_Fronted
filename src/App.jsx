@@ -128,11 +128,7 @@ function App() {
         },
         {
           path: "/referral",
-          element: (
-            <Layout>
-              <Referral />
-            </Layout>
-          ),
+          element: <Referral />,
           errorElement: <NotFound />,
         },
         {

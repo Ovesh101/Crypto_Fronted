@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import LoadingIcon from "./LoadingIcon"; // Importing LoadingIcon component
 import toast from "react-hot-toast";
+import BackButton from "./BackButton.jsx";
 
 const Referral = () => {
   const [userId] = useLocalStorage("authToken");
@@ -88,6 +89,10 @@ const Referral = () => {
   }, [flag, userId]);
 
   return (
+    <section className="bg-[#161925]  p-6 space-y-8" >
+      <BackButton />
+
+
     <div className="lg:max-w-5xl sm:max-w-[300px] mx-auto md:p-6 p-4 bg-gray-800 rounded-lg shadow-lg">
       <h1 className="lg:text-4xl text-3xl font-bold mb-6 text-center text-white">
         Referral Overview
@@ -199,6 +204,7 @@ const Referral = () => {
         initialAmount={tableData.referral_amount_withdraw}
       />
     </div>
+    </section>
   );
 };
 

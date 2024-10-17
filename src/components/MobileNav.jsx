@@ -31,15 +31,15 @@ const MobileNav = () => {
               key={link.label}
               className={`flex flex-col items-center text-white 
                 ${isActive ? 'bg-[#7D60F9]' : ''} 
-                 px-[0.5rem] py-[0.3rem] rounded-[4px] transition-colors duration-200 ease-in-out`}
+                 px-[10px] py-[0.3rem] rounded-[4px] transition-colors duration-200 ease-in-out`}
             >
               <img
                 src={link.imgUrl}
                 alt={link.label}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
               />
-              <p className="text-sm">{link.label}</p>
+              <p className="text-[12px]">{link.label}</p>
             </Link>
           );
         })}

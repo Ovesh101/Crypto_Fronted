@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "../redux/features/UserSlice";
 import LoadingIcon from "./LoadingIcon";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState(null); // To store the user data
@@ -17,6 +18,7 @@ const Profile = () => {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 day expiry
   const [copySuccess, setCopySuccess] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user_data = useSelector((store) => store.user.userInfo);
   const [flag, setFlag] = useState(false);
@@ -61,15 +63,15 @@ const Profile = () => {
       console.log("user data after update", user_data);
 
       // Provide success feedback to the user
-      
-      toast.success("Profile Updated Successfully")
-      setFlag(prev=>!prev);
+
+      toast.success("Profile Updated Successfully");
+      setFlag((prev) => !prev);
 
       // Close the modal
       setShowModal(false);
     } catch (error) {
       console.error("Error updating user data:", error);
-  
+
       toast.error("Failed to update profile. Please try again.");
     }
   };
@@ -88,9 +90,11 @@ const Profile = () => {
 
   // Loading state
   if (loading) {
-    return   <div className="flex justify-center items-center h-screen">
-    <LoadingIcon /> {/* Show loading icon while loading */}
-  </div>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingIcon /> {/* Show loading icon while loading */}
+      </div>
+    );
   }
 
   // Error state
@@ -99,89 +103,100 @@ const Profile = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-800 rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h1 className="text-3xl text-white font-bold mb-6 lg:text-center">
-        Profile Information
-      </h1>
-      <button
-        onClick={() => setShowModal(true)}
-        className="mb-6 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200"
+    <section className="mb-8  " >
+      <div
+        onClick={() => navigate("/referral")}
+        className="bg-gray-800 shadow-lg   rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
       >
-        Update Info
-      </button>
-      <div className="space-y-6 ">
-        {/* General Info Section */}
-        <section className="bg-gray-700 lg:p-6 p-4 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            General Information
-          </h2>
-          <div className="space-y-2 text-gray-300">
-            <p>
-              <strong>First Name:</strong> {user.first_name}
-            </p>
-            <p>
-              <strong>Last Name:</strong> {user.last_name}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {user.phone_number}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <div className="flex items-center relative">
-              <p className="mr-2">
-                <strong>Self Referral Code:</strong> {user.self_referral_code}
-              </p>
-              <button onClick={handleCopy} className="flex items-center">
-                <Copy className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-500 transition duration-200" />
-              </button>
-              {copySuccess && (
-                <div className="absolute bottom-5 left-16 bg-gray-300 text-black text-sm p-2 rounded-md shadow-lg transition-opacity duration-300 opacity-100">
-                  Referral code copied!
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Bank Details Section */}
-        <section className="bg-gray-700 p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Bank Details
-          </h2>
-          <div className="space-y-2 text-gray-300">
-            <p>
-              <strong>Bank Name:</strong> {user.bank_name || "Not Provided"}
-            </p>
-            <p>
-              <strong>Account Number:</strong>{" "}
-              {user.account_no || "Not Provided"}
-            </p>
-            <p>
-              <strong>IFSC Code:</strong> {user.ifsc_code || "Not Provided"}
-            </p>
-            <p>
-              <strong>UPI ID:</strong> {user.upi_id || "Not Provided"}
-            </p>
-            <p>
-              <strong>Aadhaar Card:</strong>{" "}
-              {user.aadhaar_number || "Not Provided"}
-            </p>
-            <p>
-              <strong>PAN Card:</strong> {user.pan_card || "Not Provided"}
-            </p>
-          </div>
-        </section>
+        <h3 className="text-xl text-white font-semibold mb-4">
+          Referral Section{" "}
+        </h3>
       </div>
 
-      {/* Modal for updating info */}
-      <Modal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        user={user}
-        handleUpdate={handleUpdate}
-      />
-    </div>
+      <div className="p-6 bg-gray-800 mt-10 rounded-lg shadow-lg max-w-4xl mx-auto">
+        <h1 className="text-3xl text-white font-bold mb-6 lg:text-center">
+          Profile Information
+        </h1>
+        <button
+          onClick={() => setShowModal(true)}
+          className="mb-6 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200"
+        >
+          Update Info
+        </button>
+        <div className="space-y-6 ">
+          {/* General Info Section */}
+          <section className="bg-gray-700 lg:p-6 p-4 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              General Information
+            </h2>
+            <div className="space-y-2 text-gray-300">
+              <p>
+                <strong>First Name:</strong> {user.first_name}
+              </p>
+              <p>
+                <strong>Last Name:</strong> {user.last_name}
+              </p>
+              <p>
+                <strong>Phone Number:</strong> {user.phone_number}
+              </p>
+              <p>
+                <strong>Email:</strong> {user.email}
+              </p>
+              <div className="flex items-center relative">
+                <p className="mr-2">
+                  <strong>Self Referral Code:</strong> {user.self_referral_code}
+                </p>
+                <button onClick={handleCopy} className="flex items-center">
+                  <Copy className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-500 transition duration-200" />
+                </button>
+                {copySuccess && (
+                  <div className="absolute bottom-5 left-16 bg-gray-300 text-black text-sm p-2 rounded-md shadow-lg transition-opacity duration-300 opacity-100">
+                    Referral code copied!
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Bank Details Section */}
+          <section className="bg-gray-700 p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Bank Details
+            </h2>
+            <div className="space-y-2 text-gray-300">
+              <p>
+                <strong>Bank Name:</strong> {user.bank_name || "Not Provided"}
+              </p>
+              <p>
+                <strong>Account Number:</strong>{" "}
+                {user.account_no || "Not Provided"}
+              </p>
+              <p>
+                <strong>IFSC Code:</strong> {user.ifsc_code || "Not Provided"}
+              </p>
+              <p>
+                <strong>UPI ID:</strong> {user.upi_id || "Not Provided"}
+              </p>
+              <p>
+                <strong>Aadhaar Card:</strong>{" "}
+                {user.aadhaar_number || "Not Provided"}
+              </p>
+              <p>
+                <strong>PAN Card:</strong> {user.pan_card || "Not Provided"}
+              </p>
+            </div>
+          </section>
+        </div>
+
+        {/* Modal for updating info */}
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          user={user}
+          handleUpdate={handleUpdate}
+        />
+      </div>
+    </section>
   );
 };
 
