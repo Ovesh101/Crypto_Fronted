@@ -1,5 +1,5 @@
 import { Mail, Facebook, Twitter, Instagram } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../utils/hooks/useLocalStorage'; // Assuming this is the hook you're using for auth
 
 const Footer = () => {
@@ -46,16 +46,16 @@ const Footer = () => {
           <h3 className="font-semibold text-lg mb-4">Navigate</h3>
           <ul className="space-y-2 text-gray-300 text-sm">
             <li>
-              <a href="#" onClick={() => handleNavigate("/machine_listing")}>Home</a>
+              <Link to="/machine_listing"  onClick={() => handleNavigate("/machine_listing")}>Home</Link>
             </li>
             <li>
-              <a href="#" onClick={() => navigate("/")}>Our Company</a>
+              <Link to="/"  onClick={() => navigate("/")}>Our Company</Link>
             </li>
             <li>
-              <a href="#" onClick={() => navigate("/")}>What We Do</a>
+              <Link to="/"  onClick={() => navigate("/")}>What We Do</Link>
             </li>
             <li>
-              <a href="#" onClick={() => handleNavigate("/Privacy_Policy")}>Privacy Policy</a>
+              <Link to="/Privacy_Policy"  onClick={() => handleNavigate("/Privacy_Policy")}>Privacy Policy</Link>
             </li>
           </ul>
         </div>

@@ -148,8 +148,15 @@ const BuyMachine = () => {
 
   return (
     <>
-      <div className="bg-gray-800 relative place-items-center flex justify-center items-center px-5 py-16">
-        <div className="absolute flex top-3 left-4 md:top-10 md:left-10">
+    <section className="bg-gray-800 ">
+      <div className="flex justify-center  py-5" >
+        <MessageBox name="buy_machine" />
+      </div>
+  
+
+ 
+      <div className="bg-gray-800 relative place-items-center flex justify-center items-center px-5 py-10">
+        <div className="absolute flex top-1 left-4 md:top-10 md:left-10">
           <BackButton />
         </div>
 
@@ -288,6 +295,7 @@ const BuyMachine = () => {
           </div>
         </div>
       </div>
+      </section>
     </>
   );
 };

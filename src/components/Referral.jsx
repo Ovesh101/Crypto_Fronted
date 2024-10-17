@@ -127,23 +127,23 @@ const Referral = () => {
             </button>
           </div>
 
-          <h2 className="text-3xl font-semibold mb-4 text-white">
+          <h2 className="text-3xl text-center  font-semibold mb-4 text-white">
             Referral Details
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
               <thead>
-                <tr className="bg-gray-100 text-gray-700 text-left">
-                  <th className="py-4 px-3 sm:px-6 font-semibold">
-                    Referred User Name
+                <tr className="bg-gray-100 text-gray-700 text-left text-[10px] md:text-[16px]">
+                  <th className="py-2 pl-2  sm:py-4 md:px-6 font-semibold">
+                    Referred  Name
                   </th>
-                  <th className="py-4 px-3 sm:px-6 font-semibold">
+                  <th className="py-2 pl-2  sm:py-4 md:px-6 font-semibold">
                     Referral Date
                   </th>
-                  <th className="py-4 px-3 sm:px-6 font-semibold">
+                  <th className="py-2 pl-2  sm:py-4 md:px-6 font-semibold">
                     First Deposit
                   </th>
-                  <th className="py-4 px-3 sm:px-6 font-semibold">
+                  <th className="py-2 pl-2 sm:py-4 md:px-6 font-semibold">
                     Referral Amount
                   </th>
                 </tr>
@@ -155,20 +155,29 @@ const Referral = () => {
                       key={referral.id}
                       className="border-t border-gray-200 hover:bg-gray-100 transition-colors duration-300"
                     >
-                      <td className="py-4 px-3 sm:px-6 text-gray-800">
+                      <td className="py-2 px-2 sm:py-4 sm:px-6 text-gray-800 text-xs sm:text-sm">
                         {referral.referred_username}
                       </td>
-                      <td className="py-4 px-3 sm:px-6 text-gray-800">
-                        {referral.reffered_date}
-                      </td>
-                      <td className="py-4 px-3 sm:px-6 text-gray-800">
+                      <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-sm">
+                      {new Date(referral.reffered_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
+                      <td className="py-2 px-2 sm:py-4 sm:px-6 text-gray-800 text-xs sm:text-sm">
                         {referral.first_deposit}
                       </td>
-                      <td className="py-4 px-3 sm:px-6 text-gray-800">
+                      <td className="py-2 px-2 sm:py-4 sm:px-6 text-gray-800 text-xs sm:text-sm">
                         {referral.referral_amount}
                       </td>
                     </tr>
                   ))
+
+                
                 ) : (
                   <tr>
                     <td colSpan={4} className="py-4 text-gray-400 text-center">

@@ -12,10 +12,10 @@ const MessageBox = ({ name }) => {
       message = 'Your withdrawal request has been processed!';
       break;
     case 'machine_listing':
-      message = 'New machines have been listed successfully!';
+      message = 'New machines have been listed successfully! New machines have been listed successfully! New machines have been listed successfully! New machines have been listed successfully! New machines have been listed successfully!';
       break;
     case 'buy_machine':
-      message = 'You are about to buy a machine. Please confirm!';
+      message = 'You are about to buy a machine.';
       break;
     default:
       message = 'This is a message! You can close this by clicking the cross icon.';

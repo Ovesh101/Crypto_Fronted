@@ -35,6 +35,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Video_Section from "./components/Video_Section";
 import NotFound from "./components/NotFound";
 import Privacy_Policy from "./components/Privacy_Policy";
+import Transaction from "./components/Transaction";
 
 function App() {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
@@ -111,17 +112,17 @@ function App() {
         },
         {
           path: "/deposit",
-          element: (
-            <Layout>
-              <Deposit />
-            </Layout>
-          ),
+          element: <Deposit />,
         },
         {
           path: "/withdrawal",
+          element: <WithDrawal />,
+        },
+        {
+          path: "/transaction",
           element: (
             <Layout>
-              <WithDrawal />
+              <Transaction />
             </Layout>
           ),
         },
@@ -198,7 +199,6 @@ function App() {
           path: "/Privacy_Policy",
           element: <Privacy_Policy />,
         },
-        
 
         {
           path: "*",

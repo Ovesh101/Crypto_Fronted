@@ -3,6 +3,7 @@ import { HOST_URL } from "../utils/constant";
 import useLocalStorage from "../utils/hooks/useLocalStorage";
 import LoadingIcon from "./LoadingIcon";
 import MessageBox from "./MessageBox";
+import BackButton from "./BackButton";
 
 const WithDrawal = () => {
   const [userId] = useLocalStorage("authToken"); // 1 hour expiry
@@ -60,125 +61,138 @@ const WithDrawal = () => {
   }
 
   return (
+    <section className="bg-[#161925]  p-6" >
+      <MessageBox name="withdrawal" />
+      <BackButton />
 
-    <>
+      <div className="max-w-4xl  mx-auto p-4  bg-gray-50 rounded-lg shadow-lg">
+        <h1 className="text-4xl font-bold mb-6 text-center text-violet-700">
+          Withdrawals
+        </h1>
 
-    <MessageBox name="withdrawal" />
-
-    <div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold mb-6 text-center text-violet-700">
-        Withdrawals
-      </h1>
-
-      {/* Tab Buttons */}
-      <div className="flex flex-col md:flex-row justify-center mb-6">
-        <button
-          className={`px-6 py-3 rounded-l-lg md:rounded-l-lg md:rounded-r-none transition-colors duration-300 ${
-            activeTab === "pending"
-              ? "bg-violet-600 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-          }`}
-          onClick={() => setActiveTab("pending")}
-        >
-          Pending Withdrawals
-        </button>
-        <button
-          className={`px-6 py-3 rounded-r-lg md:rounded-l-none md:rounded-r-lg transition-colors duration-300 ${
-            activeTab === "success"
-              ? "bg-violet-600 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-          }`}
-          onClick={() => setActiveTab("success")}
-        >
-          Successful Withdrawals
-        </button>
-      </div>
-
-      {/* Pending Withdrawals Table */}
-      {activeTab === "pending" && (
-        <div className="overflow-x-auto">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+        {/* Tab Buttons */}
+        <div className="flex flex-col md:flex-row justify-center mb-6">
+          <button
+            className={`px-6 py-3 rounded-l-lg md:rounded-l-lg md:rounded-r-none transition-colors duration-300 ${
+              activeTab === "pending"
+                ? "bg-violet-600 text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            }`}
+            onClick={() => setActiveTab("pending")}
+          >
             Pending Withdrawals
-          </h2>
-          <table className="min-w-full overflow-x-scroll bg-white shadow-md rounded-lg border border-gray-200">
-            <thead className="bg-violet-600 text-white">
-              <tr>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Date
-                </th>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Amount
-                </th>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {pendingWithdrawals.map((withdrawal) => (
-                <tr
-                  key={withdrawal.id}
-                  className="border-t border-gray-200 hover:bg-gray-100 transition-colors duration-300"
-                >
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    {withdrawal.withdrawal_date}
-                  </td>
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    ${withdrawal.withdrawal_amount}
-                  </td>
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    {withdrawal.is_success ? "Success" : "Pending"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Successful Withdrawals Table */}
-      {activeTab === "success" && (
-        <div className="overflow-x-auto mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+          </button>
+          <button
+            className={`px-6 py-3 rounded-r-lg md:rounded-l-none md:rounded-r-lg transition-colors duration-300 ${
+              activeTab === "success"
+                ? "bg-violet-600 text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            }`}
+            onClick={() => setActiveTab("success")}
+          >
             Successful Withdrawals
-          </h2>
-          <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-200">
-            <thead className="bg-violet-600 text-white">
-              <tr>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Date
-                </th>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Amount
-                </th>
-                <th className="py-4 px-6 text-left font-semibold text-sm uppercase tracking-wide">
-                  Withdrawal Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {successWithdrawals.map((withdrawal) => (
-                <tr
-                  key={withdrawal.id}
-                  className="border-t border-gray-200 hover:bg-gray-100 transition-colors duration-300"
-                >
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    {withdrawal.withdrawal_date}
-                  </td>
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    ${withdrawal.withdrawal_amount}
-                  </td>
-                  <td className="py-3 px-6 text-gray-800 text-sm">
-                    {withdrawal.is_success ? "Success" : "Pending"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          </button>
         </div>
-      )}
-    </div>
-    </>
+
+        {/* Pending Withdrawals Table */}
+        {activeTab === "pending" && (
+          <div className="overflow-x-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+              Pending Withdrawals
+            </h2>
+            <table className="min-w-full   bg-white shadow-md rounded-lg border border-gray-200">
+              <thead className="bg-violet-600 text-white">
+                <tr>
+                  <th className="py-2 md:py-4 px-2 text-left font-semibold text-[10px] md:text-sm uppercase ">
+                   Date
+                  </th>
+                  <th className="py-2 md:py-4 px-2 md:px-6 text-left font-semibold text-[10px] md:text-sm uppercase">
+                     Amount
+                  </th>
+                  <th className="py-2 md:py-4 px-2 md:px-6 text-left font-semibold text-[10px] md:text-sm uppercase">
+                     Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {pendingWithdrawals.map((withdrawal) => (
+                  <tr
+                    key={withdrawal.id}
+                    className="border-t border-gray-200 hover:bg-gray-100 transition-colors duration-300"
+                  >
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px]">
+                      {new Date(withdrawal.withdrawal_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
+                      ${withdrawal.withdrawal_amount}
+                    </td>
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
+                      {withdrawal.is_success ? "Success" : "Pending"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* Successful Withdrawals Table */}
+        {activeTab === "success" && (
+          <div className="overflow-x-auto mt-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+              Successful Withdrawals
+            </h2>
+            <table className="min-w-full  bg-white shadow-md rounded-lg border border-gray-200">
+              <thead className="bg-violet-600 text-white">
+                <tr>
+                  <th className="py-4 md:px-6 px-2 text-left font-semibold text-[8px] uppercase tracking-wide">
+                   Date
+                  </th>
+                  <th className="py-4 md:px-6 px-2 text-left font-semibold text-[8px] uppercase tracking-wide">
+                     Amount
+                  </th>
+                  <th className="py-4 md:px-6 px-2 text-left font-semibold text-[8px] uppercase tracking-wide">
+                   Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {successWithdrawals.map((withdrawal) => (
+                  <tr
+                    key={withdrawal.id}
+                    className="border-t border-gray-200 hover:bg-gray-100 transition-colors duration-300"
+                  >
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px]">
+                      {new Date(withdrawal.withdrawal_date).toLocaleDateString(
+                        "en-IN",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </td>
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
+                      ${withdrawal.withdrawal_amount}
+                    </td>
+                    <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
+                      {withdrawal.is_success ? "Success" : "Pending"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 
