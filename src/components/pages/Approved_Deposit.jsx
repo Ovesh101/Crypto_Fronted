@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import useLocalStorage from "../../utils/hooks/useLocalStorage";
 import LoadingIcon from "../../components/LoadingIcon"; // Import your loading icon component
 import BackButton from "../BackButton";
+import axios from "axios";
+import { HOST_URL } from "../../utils/constant";
+import { addApprovedDeposit, addApprovedWithDrawal } from "../../redux/features/AdminSlice";
 
 const Approved_Deposit = () => {
   const approved_deposit =
@@ -12,6 +15,9 @@ const Approved_Deposit = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
+  const dispatch = useDispatch();
+
+  const getApprovedDepositsUrl = `${HOST_URL}/deposit+success/getall+success+request`;
 
   // Calculate number of pages
   const pageCount = Math.ceil(approved_deposit.length / itemsPerPage);
@@ -24,24 +30,25 @@ const Approved_Deposit = () => {
   console.log("current items", currentItems);
 
   useEffect(() => {
-    // Simulating data fetch delay for demonstration
-    const fetchData = async () => {
-      setLoading(true);
+    const fetchApprovedDeposit = async () => {
+      
       try {
-        if (!userId) {
-          navigate("/login");
-        } else {
-          // Fetch your data here if needed
-          // After fetching, turn off loading
-          setLoading(false);
-        }
+        const response = await axios.get(getApprovedDepositsUrl);
+        dispatch(addApprovedDeposit(response.data));
+  
+        setLoading(false); // Stop loading after data is fetched
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+        console.error("Error fetching pending deposits:", error);
+        setLoading(false); // Stop loading on error
       }
     };
 
-    fetchData();
+    if (!userId) {
+      navigate("/login");
+    } else {
+      
+      fetchApprovedDeposit();
+    }
   }, [userId]);
 
   // Handle page change

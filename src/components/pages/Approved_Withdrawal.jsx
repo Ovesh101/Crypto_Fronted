@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../../utils/hooks/useLocalStorage";
 import LoadingIcon from "../LoadingIcon";
 import BackButton from "../BackButton";
+import { addApprovedWithDrawal } from "../../redux/features/AdminSlice";
+import { HOST_URL } from "../../utils/constant";
+import axios from "axios";
+
 
 const Approved_Withdrawal = () => {
   const approved_withdrawal =
     useSelector((state) => state.admin.admin.approved_withdrawal) || [];
+
+    console.log("approved" , approved_withdrawal);
+    const dispatch = useDispatch();
+    
   const [currentPage, setCurrentPage] = useState(0);
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 day expiry
   const [loading, setLoading] = useState(true); // Loading state
+
   const itemsPerPage = 10;
   const navigate = useNavigate();
+  const getApprovedWithdrawalsUrl = `${HOST_URL}/user+withdrawal/getAll+approved+withdrawals`;
 
   // Calculate number of pages
   const pageCount = Math.ceil(approved_withdrawal.length / itemsPerPage);
@@ -26,18 +36,28 @@ const Approved_Withdrawal = () => {
   console.log("current items", currentItems);
 
   useEffect(() => {
+
+    const fetchApprovedWithdrawal = async () => {
+      
+      try {
+        const response = await axios.get(getApprovedWithdrawalsUrl);
+        dispatch(addApprovedWithDrawal(response.data));
+  
+        setLoading(false); // Stop loading after data is fetched
+      } catch (error) {
+        console.error("Error fetching pending deposits:", error);
+        setLoading(false); // Stop loading on error
+      }
+    };
     if (!userId) {
       navigate("/login");
     } else {
-      // Simulate data fetching
-      const fetchData = async () => {
-        // You might replace this with actual API call
-        // await fetchApprovedWithdrawals();
-        setLoading(false); // Set loading to false after fetching
-      };
-      fetchData();
+      
+      fetchApprovedWithdrawal();
     }
   }, [userId]);
+
+
 
   // Handle page change
   const handlePageChange = (selected) => {

@@ -25,17 +25,15 @@ const Section_2 = () => {
 
         {/* Second Div: Heading and Paragraph */}
         <div className="text-white text-center md:text-left px-4 md:px-0">
-          <h1 className="text-[28px] md:text-[36px] lg:text-[40px]">
-            What is Bitcoin
+          <h1 className="text-[28px] md:text-[36px] lg:text-[40px] mt-8">
+            What is Crypto Mining
           </h1>
           <p className="mt-3 text-gray-300 text-[16px] md:text-[18px] lg:text-[20px] leading-relaxed md:leading-loose">
-            Bitcoin is a digital currency that is decentralized. Any two people
-            can send each other bitcoins with no involvement of banks or
-            governments. Every transaction of bitcoins is recorded on the public
-            ledger called blockchain. The ledger can be accessed by anyone.
-            There will only ever be 21 million bitcoins and since it's digital,
-            it cannot be inflated or manipulated. There is no need to acquire
-            all bitcoins, owning a fraction suffices.
+            Crypto mining is the process of creating new cryptocurrencies like
+            Bitcoin. It involves solving complex math problems to verify
+            transactions on the blockchain, which is the public record of all
+            transactions. Miners are rewarded with new cryptocurrency for
+            successfully solving these problems.
           </p>
         </div>
       </div>

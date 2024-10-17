@@ -9,8 +9,6 @@ import BackButton from "./BackButton";
 import { Copy } from "lucide-react";
 import MessageBox from "./MessageBox";
 import QRCode from "react-qr-code";
-import useLocalStorage from "../utils/hooks/useLocalStorage";
-import { addUser } from "../redux/features/UserSlice";
 import Loading from "./Loading";
 
 const BuyMachine = () => {
@@ -26,9 +24,7 @@ const BuyMachine = () => {
     amount: "",     // Amount
     currency: "INR" // Currency (INR by default)
   });
-  const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
 
-  const userApiUrl = `${HOST_URL}/user/getSingleUser/${userId}`;
 
   // Construct the UPI payment link
   
@@ -43,15 +39,6 @@ const BuyMachine = () => {
   // Fetch machine data and QR code data
   useEffect(() => {
 
-    const fetchUserDetails = async () => {
-      try {
-        const response = await axios.get(userApiUrl);
-        dispatch(addUser(response.data));
-        console.log("user data in app.jsx", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     const fetchData = async () => {
       setLoading(true); // Start loading
       try {
@@ -83,7 +70,8 @@ const BuyMachine = () => {
       navigate("/login");
     } else {
       fetchData();
-      fetchUserDetails();
+     
+    
     }
   }, [navigate, user, machine_id]);
 
@@ -181,8 +169,8 @@ const BuyMachine = () => {
 
       const savetoPendingUrl = `${HOST_URL}/pending+request/submit+request`;
       await axios.post(savetoPendingUrl, formData);
-      toast.success("You have Buy The Machine Successfully"); // Success toast
-      navigate("/machine_listing");
+      toast.success("Successfully Purchased Machine, Wait for Admin Approval"); // Success toast
+   
     } catch (error) {
       console.error("Error occurred during submitting UTR:", error);
       toast.error("Error occurred while submitting UTR."); // Show error toast
