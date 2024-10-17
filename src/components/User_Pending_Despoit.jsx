@@ -55,7 +55,7 @@ const User_Pending_Deposit = () => {
       <BackButton />
 
       {user_pending_deposit && user_pending_deposit.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid mt-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {user_pending_deposit.map((machine) => (
             <div
               className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105"
