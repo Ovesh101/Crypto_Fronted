@@ -6,13 +6,13 @@ const Footer = () => {
   const navigate = useNavigate();
   const [token] = useLocalStorage("authToken"); // Check if the user is logged in
 
-  const handleNavigate = (path) => {
-    if (token) {
-      navigate(path); // Navigate to the intended path if the user is logged in
-    } else {
-      navigate("/"); // Redirect to home/login if not logged in
-    }
-  };
+ const handleClick  = ()=>{
+  if(token){
+    navigate('/video_section');
+  }else{
+    navigate("/login")
+  }
+ }
 
   return (
     <footer className="bg-[#192057] text-white md:py-5 pb-[100px] pt-[20px] px-6 md:px-20">
@@ -47,7 +47,7 @@ const Footer = () => {
               <Link to="/machine_listing"  onClick={() => handleNavigate("/machine_listing")}>Home</Link>
             </li>
             <li>
-              <Link to="/"  onClick={() => navigate("/")}>Our Company</Link>
+              <Link to="/video_section"  onClick={handleClick}>What we do</Link>
             </li>
             <li>
               <Link to="/terms">Terms and Condition</Link>
