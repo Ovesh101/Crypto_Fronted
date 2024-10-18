@@ -10,8 +10,10 @@ import { Copy } from "lucide-react";
 import MessageBox from "./MessageBox";
 import QRCode from "react-qr-code";
 import Loading from "./Loading";
+import useLocalStorage from "../utils/hooks/useLocalStorage";
 
 const BuyMachine = () => {
+  const [userId, setUserId] = useLocalStorage("authToken"); 
   const [machineData, setMachineData] = useState({});
   const [qrData, setQRData] = useState({});
   const [utr, setUtr] = useState("");
@@ -40,7 +42,7 @@ const BuyMachine = () => {
   useEffect(() => {
 
     const fetchData = async () => {
-      setLoading(true); // Start loading
+     
       try {
         const machineResponse = await axios.get(
           `${HOST_URL}/display+machine/get+single+display+machine/${machine_id}`
@@ -65,15 +67,15 @@ const BuyMachine = () => {
         setLoading(false); // Stop loading
       }
     };
-
-    if (!user) {
+    
+    if (!userId) {
       navigate("/login");
     } else {
       fetchData();
      
     
     }
-  }, [navigate, user, machine_id]);
+  }, []);
 
   const upiLink = `upi://pay?pa=${upiData.upiID}&pn=${upiData.payeeName}&am=${upiData.amount}&cu=${upiData.currency}`;
 

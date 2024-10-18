@@ -36,6 +36,7 @@ import Video_Section from "./components/Video_Section";
 import NotFound from "./components/NotFound";
 import Privacy_Policy from "./components/Privacy_Policy";
 import Transaction from "./components/Transaction";
+import Terms from "./components/Terms";
 
 function App() {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
@@ -195,6 +196,10 @@ function App() {
         {
           path: "/Privacy_Policy",
           element: <Privacy_Policy />,
+        },
+        {
+          path: "/terms",
+          element: <Terms />,
         },
 
         {

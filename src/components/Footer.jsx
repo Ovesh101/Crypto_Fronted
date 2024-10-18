@@ -50,10 +50,10 @@ const Footer = () => {
               <Link to="/"  onClick={() => navigate("/")}>Our Company</Link>
             </li>
             <li>
-              <Link to="/"  onClick={() => navigate("/")}>What We Do</Link>
+              <Link to="/terms">Terms and Condition</Link>
             </li>
             <li>
-              <Link to="/Privacy_Policy"  onClick={() => handleNavigate("/Privacy_Policy")}>Privacy Policy</Link>
+              <Link to="/Privacy_Policy"s>Privacy Policy</Link>
             </li>
           </ul>
         </div>
@@ -71,7 +71,7 @@ const Footer = () => {
           <ul className="text-gray-300 text-sm">
             <li className="flex items-center mt-2">
               <Mail className="mr-2" />
-              <a href="mailto:support@gmail.com">support@gmail.com</a>
+              <a href="mailto:Cryptominers@gmail.com">Cryptominers@gmail.com</a>
             </li>
           </ul>
         </div>
