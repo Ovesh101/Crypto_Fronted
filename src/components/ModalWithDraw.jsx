@@ -12,12 +12,12 @@ const Modal = ({ isOpen, onClose, onWithdraw, initialAmount }) => {
   useEffect(() => {
     const amount = parseFloat(withdrawalAmount); // Convert to number
     // Check if the input is a valid number, greater than or equal to 20, and does not exceed initialAmount
-    if (isNaN(amount) || amount < 20) {
+    if (isNaN(amount) || amount < 50) {
       setIsWithdrawDisabled(true);
-      setErrorMessage(`The withdrawal amount must be at least 20.`);
+      setErrorMessage(`The withdrawal amount must be at least ₹50.`);
     } else if (amount > initialAmount) {
       setIsWithdrawDisabled(true);
-      setErrorMessage(`The withdrawal amount cannot exceed ${initialAmount}.`);
+      setErrorMessage(`The withdrawal amount cannot exceed ₹${initialAmount}.`);
     } else {
       setIsWithdrawDisabled(false);
       setErrorMessage(""); // Clear error message if conditions are met
@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, onWithdraw, initialAmount }) => {
         <div className="absolute inset-0 bg-black opacity-50" onClick={onClose} />
         <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full z-10">
           <h2 className="text-xl font-bold mb-4 text-center">Withdrawal Confirmation</h2>
-          <p className="text-gray-700 mb-4">Available to Withdraw: <span className="font-semibold">{initialAmount}</span></p>
+          <p className="text-gray-700 mb-4">Available to Withdraw: <span className="font-semibold">₹{initialAmount}</span></p>
           <input
             type="number"
             value={withdrawalAmount}

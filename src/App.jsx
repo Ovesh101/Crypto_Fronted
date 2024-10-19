@@ -41,7 +41,7 @@ import Terms from "./components/Terms";
 function App() {
   const [userId, setUserId] = useLocalStorage("authToken"); // 1 hour expiry
 
-  console.log(userId);
+
 
   const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ function App() {
       try {
         const response = await axios.get(userApiUrl);
         dispatch(addUser(response.data));
-        console.log("user data in app.jsx", response.data);
+ 
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +62,7 @@ function App() {
     const fetchUserPendingDeposit = async () => {
       try {
         const response = await axios.get(user_pending_deposit_API);
-        console.log("pending depsoit of user", response.data);
+   
 
         dispatch(addUserPendingDeposit(response.data));
       } catch (error) {

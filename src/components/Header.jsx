@@ -17,7 +17,7 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("user id", user_data);
+
 
   // Add event listener to detect scroll
   useEffect(() => {

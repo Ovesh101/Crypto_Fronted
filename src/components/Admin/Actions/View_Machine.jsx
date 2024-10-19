@@ -53,7 +53,7 @@ const View_Machine = () => {
   };
 
   const handleUpdate = (updateInfo) => {
-    console.log(updateInfo);
+ 
   };
 
   return (

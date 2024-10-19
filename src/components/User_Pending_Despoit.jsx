@@ -25,7 +25,7 @@ const User_Pending_Deposit = () => {
       const user_pending_deposit_API = `${HOST_URL}/pending+request/getsingleuser+pendingmachine/${userId}`;
       try {
         const response = await axios.get(user_pending_deposit_API);
-        console.log("pending depsoit of user", response.data);
+     
 
         dispatch(addUserPendingDeposit(response.data));
       } catch (error) {

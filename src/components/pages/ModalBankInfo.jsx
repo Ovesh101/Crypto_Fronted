@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const ModalBankInfo = ({ showModal, setShowModal, data, handleApprove }) => {
-    console.log("data in Modal bank info", data);
+  
 
     const user_data = useSelector((store) => store.user.userInfo);
     

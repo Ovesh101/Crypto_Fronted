@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
 
       try {
         const response = await axios.get(user_pending_deposit_API);
-        console.log("pending depsoit of user", response.data);
+
 
         dispatch(addUserPendingDeposit(response.data));
       } catch (error) {

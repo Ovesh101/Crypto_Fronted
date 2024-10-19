@@ -32,10 +32,10 @@ const Deposit = () => {
         setLoading(true); // Set loading to true when fetching starts
         const getUrl = `${HOST_URL}/user/getSingleUser/${userId}`;
         const response = await axios.get(getUrl);
-        console.log(response.data);
+
         setMachineData(response.data.user_machines);
         setUserData(response.data);
-        console.log("user machines", response.data.user_machines);
+       
       } catch (error) {
         console.log(error);
       } finally {
@@ -48,7 +48,7 @@ const Deposit = () => {
         const getInterestUrl = `${HOST_URL}/user/getSingleUser+InterestEarned/${userId}`;
         const response = await axios.get(getInterestUrl);
         setInterestData(response.data);
-        console.log("interest earned data", response.data);
+    
       } catch (error) {
         console.log(error);
       }
@@ -89,7 +89,7 @@ const Deposit = () => {
 
     try {
       const response = await axios.post(postUrl, formData);
-      console.log(response.data);
+   
 
       if (response.data) {
         setFlag((prev) => !prev);
@@ -127,16 +127,16 @@ const Deposit = () => {
               <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold">Total Deposit</h2>
                 <p className="mt-4 text-lg">
-                  {userData.total_deposited_amount}
+                ₹{userData.total_deposited_amount}
                 </p>
               </div>
               <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold">Total Interest Earned</h2>
-                <p className="mt-4 text-lg">{userData.total_interest_earned}</p>
+                <p className="mt-4 text-lg">₹{userData.total_interest_earned}</p>
               </div>
               <div className="bg-yellow-500 text-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold">Available to Withdraw</h2>
-                <p className="mt-4 text-lg">{userData.available_to_withdraw}</p>
+                <p className="mt-4 text-lg">₹{userData.available_to_withdraw}</p>
               </div>
             </div>
 
@@ -192,7 +192,7 @@ const Deposit = () => {
                             {row.machine_id}
                           </td>
                           <td className="py-2 md:py-3 px-2 md:px-6 text-gray-700 text-xs md:text-sm">
-                            ${row.amount}
+                          ₹{row.amount}
                           </td>
                           <td className="py-2 md:py-3 px-2 md:px-6 text-gray-700 text-xs md:text-sm">
                             {new Date(row.date).toLocaleDateString("en-IN", {
@@ -230,7 +230,7 @@ const Deposit = () => {
                     <p className="mt-2 text-gray-300">
                       Price:{" "}
                       <span className="text-white">
-                        ${machine.machine.price.toFixed(2)}
+                      ₹{machine.machine.price.toFixed(2)}
                       </span>
                     </p>
                     <p className="mt-2 text-gray-300">

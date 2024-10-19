@@ -34,7 +34,7 @@ const Pending_Deposit = () => {
   );
 
   useEffect(() => {
-    console.log('useeffect called');
+   
     
     const getPendingDepositsUrl = `${HOST_URL}/pending+request/getall`;
     const fetchPendingDeposit = async () => {
@@ -124,7 +124,7 @@ const Pending_Deposit = () => {
                         }
                       )}
                     </td>
-                      <td className="py-4 px-4 border-b border-gray-600">{item.machine_price}</td>
+                      <td className="py-4 px-4 border-b border-gray-600">₹{item.machine_price}</td>
                       <td
                         onClick={() => handleApprove(item)}
                         className="py-2 px-4 cursor-pointer rounded bg-green-600 hover:bg-green-700 transition duration-300 text-center"

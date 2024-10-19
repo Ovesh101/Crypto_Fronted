@@ -30,7 +30,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(userApiUrl);
-        console.log("user data", response.data);
+
 
         setUser(response.data); // Populate user data
         setLoading(false);
@@ -48,19 +48,19 @@ const Profile = () => {
   }, []);
 
   const handleUpdate = async (updatedData) => {
-    console.log("profile dT", updatedData);
+
 
     const patchUrl = `${HOST_URL}/user/update+basicdata/${user.user_id}`; // Using user_id from the user object
     try {
       const response = await axios.patch(patchUrl, updatedData);
-      console.log("Updated Data:", response.data);
+      
 
       // Optionally, update the local user state with the new data after successful update
       setUser(response.data);
       dispatch(updateUserInfo(response.data));
-      console.log("user data in rdux", user_data);
+      
 
-      console.log("user data after update", user_data);
+    
 
       // Provide success feedback to the user
 

@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ role, children }) => {
   const user = useSelector((state) => state.user.userInfo); // Assuming user data is stored in the 'user' slice
-  console.log("protected route" , user);
+
   
 
   // Check if the user is authenticated and has the required role

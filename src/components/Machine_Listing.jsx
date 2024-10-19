@@ -24,7 +24,7 @@ const MachineListing = () => {
             try {
                 const response = await axios.get(`${HOST_URL}/display+machine/getall+display+machines`);
                 dispatch(addMachines(response.data));
-                console.log("machines", response.data);
+             
             } catch (error) {
                 console.error("Error fetching machines:", error);
                 setError("Failed to load machines");
@@ -64,7 +64,7 @@ const MachineListing = () => {
 
     return (
         <>
-            <MessageBox name="machine_listing" />
+           
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {machines.map((machine) => (
                     <div className="bg-gray-800 p-6 rounded-lg shadow-md" key={machine.machine_id}>
@@ -75,7 +75,7 @@ const MachineListing = () => {
                             className="w-full h-40 object-contain rounded-md mb-4"
                         />
                         <h3 className="text-2xl font-bold text-white mb-2">{machine.machine_name}</h3>
-                        <p className="text-lg text-gray-300 mb-1">Price: ${machine.price}</p>
+                        <p className="text-lg text-gray-300 mb-1">Price: ₹{machine.price}</p>
                         <p className="text-sm text-gray-400 mb-1">Valid for {machine.valid_days} days</p>
                         <p className="text-sm text-gray-400 mb-1">Interest Per Day: {machine.interest_per_day}</p>
                         <button

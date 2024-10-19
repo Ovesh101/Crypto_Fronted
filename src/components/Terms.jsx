@@ -3,7 +3,7 @@ import BackButton from "./BackButton";
 const Terms = () => {
   return (
     <section className="bg-gray-800 min-h-screen">
-      <BackButton />
+   
 
       <div className="bg-gray-800 py-10 px-4 sm:px-10 md:px-20 lg:px-40 xl:px-[200px] mx-auto">
         <h1 className="text-3xl md:text-4xl lg:text-[50px] text-center font-bold text-white mb-6">

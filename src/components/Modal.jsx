@@ -4,7 +4,7 @@ const Modal = ({ showModal, setShowModal, user, handleUpdate }) => {
   const [formData, setFormData] = useState(user);
 
   const handleChange = (e) => {
-    console.log("form data , profile", formData);
+ 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 

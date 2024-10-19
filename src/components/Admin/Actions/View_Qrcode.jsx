@@ -38,7 +38,7 @@ const View_Qrcode = () => {
   const currentQRCodes = qrCodes.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(qrCodes.length / itemsPerPage);
 
-  console.log("currrent" , currentQRCodes);
+
   
 
   // Handle page change
@@ -50,14 +50,13 @@ const View_Qrcode = () => {
   const handleEditClick = (item) => {
     
     try {
-      console.log("item" , item);
+
       
         setSingleQrcode(item);
 
         // Open the modal
         setShowModal(true);
 
-        console.log(`Edit machine with ID: ${item.machine_id}`, qrCodes);
     } catch (error) {
         console.error("Error fetching machine data:", error);
     }
@@ -65,7 +64,7 @@ const View_Qrcode = () => {
   };
 
   const handleUpdate = (updateInfo)=>{
-    console.log(updateInfo);
+   
     
   }
 

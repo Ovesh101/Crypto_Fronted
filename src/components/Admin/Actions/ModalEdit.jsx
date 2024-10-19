@@ -4,7 +4,7 @@ const ModalEdit = ({ showModal, setShowModal, type, data, handleUpdate }) => {
   //  it is taking time to load the data thats why we use {}
   const [formData, setFormData] = useState(data);
 
-  console.log(" data", data);
+
 
   useEffect(() => {
     if (data) {
@@ -12,10 +12,10 @@ const ModalEdit = ({ showModal, setShowModal, type, data, handleUpdate }) => {
     }
   }, [data]);
 
-  console.log("form data", data);
+ 
 
   const handleChange = (e) => {
-    console.log("form data", formData);
+
 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

@@ -3,7 +3,7 @@ import BackButton from "./BackButton";
 const Privacy_Policy = () => {
   return (
     <section className="bg-gray-800">
-      <BackButton />
+     
 
       <div className="bg-gray-800 py-10 px-6 md:px-10 lg:px-20 xl:px-[200px] mx-auto">
         <h1 className="text-[36px] md:text-[40px] lg:text-[50px] text-center font-bold text-white mb-6">

@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import Spinner from "./Spinner";
 import { HOST_URL } from "../utils/constant";
 import axios from "axios"; // Import axios at the top of your file
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/features/UserSlice";
 import useLocalStorage from "../utils/hooks/useLocalStorage";
@@ -25,7 +25,6 @@ const Login = () => {
     const referral = searchParams.get("referral");
     if (referral && !isSignIn) {
       setReferralCode(referral); // Set local state with the referral code
-      console.log("Referral code from URL:", referral); // Debugging line
     }
   }, [searchParams, isSignIn]);
 
@@ -46,6 +45,7 @@ const Login = () => {
     email: isSignIn ? "" : "",
     password: "",
     phone_number: "",
+    terms: false,
     invited_referral_code: !isSignIn ? referralCode : null,
   };
 
@@ -74,14 +74,23 @@ const Login = () => {
       .required("Phone Number is required")
       .matches(/^[0-9]+$/, "Phone Number must be a number") // Regex to ensure it's a number
       .min(10, "Phone Number must be at least 10 digits") // Minimum length check
-      .max(15, "Phone Number cannot exceed 15 digits"),
+      .max(10, "Phone Number cannot exceed 10 digits"),
+
+    terms: !isSignIn
+      ? Yup.boolean()
+          .oneOf([true], "You must accept the terms and conditions")
+          .required("You must accept the terms and conditions")
+      : null,
     // Only require 'name' for sign-up form
   });
 
   // Handle form submission
   const onSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
-    console.log("Form Data:", values);
+
+    const { terms, ...formData } = values;
+
+    console.log("formdata", formData);
 
     // If user is signing up
     if (!isSignIn) {
@@ -90,18 +99,18 @@ const Login = () => {
 
       try {
         // Check if referral code is provided
-        if (values.invited_referral_code) {
+        if (formData.invited_referral_code) {
           const checkReferral = await axios.get(
-            `${HOST_URL}/user/getvalid+referralcode/${values.invited_referral_code}`
+            `${HOST_URL}/user/getvalid+referralcode/${formData.invited_referral_code}`
           );
 
           if (checkReferral.data) {
             setShowText("Correct Referral");
-            console.log("Referral is correct:", checkReferral);
 
             // Proceed with registration
-            const response = await axios.post(postUrl, values);
-            console.log("Response:", response.data);
+            const response = await axios.post(postUrl, formData);
+            console.log(response.data);
+
             setIsSignIn(true);
             toast.success("You have successfully registered");
           } else {
@@ -111,34 +120,33 @@ const Login = () => {
         } else {
           // If no referral code is provided, proceed with registration directly
 
-          console.log("no referral code is provided");
-
-          console.log(values);
-          if (!values.invited_referral_code) {
-            values.invited_referral_code = null; // Remove the field
+          if (!formData.invited_referral_code) {
+            formData.invited_referral_code = null; // Remove the field
           }
 
-          const response = await axios.post(postUrl, values);
-          console.log("Response:", response.data);
+          const response = await axios.post(postUrl, formData);
+
           setIsSignIn(true);
           toast.success("You have successfully registered");
         }
       } catch (error) {
         console.error("Error submitting form:", error);
-        toast.error("Failed to create user");
+        toast.error("Email or Phone number already exist");
       } finally {
         setSubmitting(false); // Always set submitting to false once the request is completed
       }
     } else {
       try {
+        console.log("hello");
+
         const phone = parseInt(values.phone_number);
-        console.log("Phone number:", phone);
+
+        console.log("phone", phone);
 
         const getUrl = `${HOST_URL}/user/getSingleUserByNumber/${phone}`;
 
         // Send GET request to fetch user data by phone number
         const response = await axios.get(getUrl);
-        console.log("Login data:", response.data);
 
         if (
           values.password === response.data.password &&
@@ -175,7 +183,7 @@ const Login = () => {
   }, [token, navigate]);
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative  w-full">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -287,7 +295,7 @@ const Login = () => {
 
                 <div className="mb-4 relative ">
                   <Field
-                   type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Password"
                     className="w-full p-3 rounded bg-[#271A84] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#271A84]"
@@ -304,6 +312,32 @@ const Login = () => {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </div>
                 </div>
+                {!isSignIn && (
+                  <div className=" mb-4 relative ">
+                    <Field
+                      type="checkbox"
+                      id="terms"
+                      name="terms"
+                      className="mr-2"
+                    />
+                    <label htmlFor="terms" className="text-white">
+                      I agree to the{" "}
+                      <Link
+                        to="/terms"
+                        className="text-blue-600 hover:underline"
+                        rel="noopener noreferrer"
+                      >
+                        Terms and Conditions
+                      </Link>
+                    </label>
+
+                    <ErrorMessage
+                      name="terms"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                )}
 
                 <div className="relative">
                   <button
@@ -328,7 +362,7 @@ const Login = () => {
           </Formik>
 
           {/* Additional Links */}
-          <div className="mt-6 text-gray-400 text-center">
+          <div className="mt-3 text-gray-400 text-center">
             <p>
               {isSignIn ? `New to Mining? ` : "Already a Member? "}
               <a
@@ -339,6 +373,18 @@ const Login = () => {
                 {isSignIn ? "Register" : "Login"}
               </a>
             </p>
+          </div>
+          <div className="text-center text-gray-400">
+            <span className="mb-2 mr-2 ">Forgot your password?</span>
+            <span>
+              Please email us at{" "}
+              <a
+                href="mailto:Cryptomyners@gmail.com"
+                className="text-blue-500 underline"
+              >
+                Cryptomyners@gmail.com
+              </a>
+            </span>
           </div>
         </div>
       </div>

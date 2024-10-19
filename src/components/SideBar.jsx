@@ -16,7 +16,7 @@ const Sidebar = () => {
         return null; // or a loading spinner if you prefer
     }
 
-    console.log("user role in sidebar", user.role);
+  
 
     return (
         <section className='sticky left-0 top-0 flex h-screen w-fit flex-col justify-between bg-[#1C1F2E] p-6 pt-20 text-white max-sm:hidden lg:w-[264px]'>

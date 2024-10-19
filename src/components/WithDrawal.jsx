@@ -131,7 +131,7 @@ const WithDrawal = () => {
                       )}
                     </td>
                     <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
-                      ${withdrawal.withdrawal_amount}
+                    ₹{withdrawal.withdrawal_amount}
                     </td>
                     <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
                       {withdrawal.is_success ? "Success" : "Pending"}
@@ -180,7 +180,7 @@ const WithDrawal = () => {
                       )}
                     </td>
                     <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
-                      ${withdrawal.withdrawal_amount}
+                    ₹{withdrawal.withdrawal_amount}
                     </td>
                     <td className="py-2 md:py-3 px-2 md:px-6 text-gray-800 text-[10px] md:text-[16px] ">
                       {withdrawal.is_success ? "Success" : "Pending"}

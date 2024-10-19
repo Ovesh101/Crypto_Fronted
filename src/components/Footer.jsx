@@ -71,7 +71,7 @@ const Footer = () => {
           <ul className="text-gray-300 text-sm">
             <li className="flex items-center mt-2">
               <Mail className="mr-2" />
-              <a href="mailto:Cryptominers@gmail.com">Cryptominers@gmail.com</a>
+              <a href="mailto:Cryptomyners@gmail.com">Cryptomyners@gmail.com</a>
             </li>
           </ul>
         </div>

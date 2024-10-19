@@ -35,7 +35,7 @@ const BuyMachine = () => {
   const navigate = useNavigate();
   const { machine_id } = useParams();
   const user = useSelector((state) => state.user.userInfo);
-  console.log("user info in buy machine", user);
+ 
  
 
   // Fetch machine data and QR code data
@@ -102,7 +102,7 @@ const BuyMachine = () => {
       .writeText(formData.upi_id)
       .then(() => {
         setCopySuccess(true);
-        console.log("hello");
+      
 
         setTimeout(() => setCopySuccess(false), 2000); // Hide after 2 seconds
       })
@@ -132,7 +132,6 @@ const BuyMachine = () => {
         // Combine both pending and success deposits into a single list
         const allDeposits = [...pendingResponse.data, ...successResponse.data];
 
-        console.log("pending and succesfull deposit", allDeposits);
 
         // Convert checkutr to an integer (UTR number to check)
         const utrnum = parseInt(checkutr, 10);
@@ -283,7 +282,7 @@ const BuyMachine = () => {
                     maxLength={12}
                     onChange={(e) => setUtr(e.target.value)}
                     className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter UTR"
+                    placeholder="12 DIGIT UTR NUMBER"
                     required
                   />
 

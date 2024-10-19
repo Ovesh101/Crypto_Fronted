@@ -123,7 +123,7 @@ const Pending_Withdrawal = () => {
                         {item.user_id}
                       </td>
                       <td className="py-4 px-4 border-b border-gray-600">
-                        {item.withdrawal_amount}
+                      ₹{item.withdrawal_amount}
                       </td>
                       <td className="py-4 px-4 border-b border-gray-600">
                         {item.is_success ? "Success" : "Pending"}

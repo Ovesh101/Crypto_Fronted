@@ -26,10 +26,7 @@ const Admin = () => {
   const pending_withdrawal = useSelector((state) => state.admin.admin.pending_withdrawal) || [];
   const approved_withdrawal = useSelector((state) => state.admin.admin.approved_withdrawal) || [];
 
-  console.log("pending deposit", pending_deposit);
-  console.log("approved deposit", approved_deposit);
-  console.log("pending withdrawal", pending_withdrawal);
-  console.log("approved withdrawal", approved_withdrawal);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +35,7 @@ const Admin = () => {
 
         // Fetch pending deposits
         const pendingDepositsResponse = await axios.get(getPendingDepositsUrl);
-        console.log(pendingDepositsResponse);
+    
         dispatch(addPendingDeposit(pendingDepositsResponse.data));
 
         // Fetch approved deposits

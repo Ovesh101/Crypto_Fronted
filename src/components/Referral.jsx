@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import LoadingIcon from "./LoadingIcon"; // Importing LoadingIcon component
 import toast from "react-hot-toast";
 import BackButton from "./BackButton.jsx";
+import MessageBox from "./MessageBox.jsx";
 
 const Referral = () => {
   const [userId] = useLocalStorage("authToken");
@@ -92,6 +93,8 @@ const Referral = () => {
     <section className="bg-[#161925]  p-6 space-y-8" >
       <BackButton />
 
+      <MessageBox name="referral" />
+
 
     <div className=" mx-auto md:p-6 p-4 bg-gray-800 rounded-lg shadow-lg">
       <h1 className="lg:text-4xl text-3xl font-bold mb-6 text-center text-white">
@@ -111,7 +114,7 @@ const Referral = () => {
                 Total Referrals Earned
               </h2>
               <p className="mt-2 text-3xl sm:text-4xl font-bold">
-                {tableData.total__referral_earned}
+              ₹{tableData.total__referral_earned}
               </p>
             </div>
             <div className="bg-blue-600 text-white p-4 sm:p-6 rounded-lg shadow-md flex flex-col justify-between">
@@ -119,7 +122,7 @@ const Referral = () => {
                 Available to Withdraw
               </h2>
               <p className="mt-2 text-3xl sm:text-4xl font-bold">
-                {tableData.referral_amount_withdraw}
+              ₹{tableData.referral_amount_withdraw}
               </p>
             </div>
           </div>
@@ -174,10 +177,10 @@ const Referral = () => {
                       )}
                     </td>
                       <td className="py-2 px-2 sm:py-4 sm:px-6 text-gray-800 text-xs sm:text-sm">
-                        {referral.first_deposit}
+                      ₹{referral.first_deposit}
                       </td>
                       <td className="py-2 px-2 sm:py-4 sm:px-6 text-gray-800 text-xs sm:text-sm">
-                        {referral.referral_amount}
+                      ₹{referral.referral_amount}
                       </td>
                     </tr>
                   ))

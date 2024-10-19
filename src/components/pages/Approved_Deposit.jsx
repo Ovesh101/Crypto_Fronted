@@ -27,7 +27,7 @@ const Approved_Deposit = () => {
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-  console.log("current items", currentItems);
+ 
 
   useEffect(() => {
     const fetchApprovedDeposit = async () => {
@@ -111,7 +111,7 @@ const Approved_Deposit = () => {
                       )}
                     </td>
                       <td className="py-4 px-4 border-b border-gray-600">
-                        {item.machine_price}
+                      ₹{item.machine_price}
                       </td>
                     </tr>
                   ))
