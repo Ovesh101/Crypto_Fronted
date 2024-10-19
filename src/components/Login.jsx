@@ -183,7 +183,7 @@ const Login = () => {
   }, [token, navigate]);
 
   return (
-    <div className="relative  w-full">
+    <div className="relative py-10  w-full">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
